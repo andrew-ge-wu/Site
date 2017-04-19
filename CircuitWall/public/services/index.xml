@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CircuitWall Consultancy</title>
-    <link>http://circuitwall.com/</link>
-    <description>Recent content on CircuitWall Consultancy</description>
+    <title>Services on CircuitWall Consultancy</title>
+    <link>http://circuitwall.com/services/</link>
+    <description>Recent content in Services on CircuitWall Consultancy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://circuitwall.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://circuitwall.com/services/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>About Us</title>

@@ -3,12 +3,14 @@
   
   <url>
     <loc>http://circuitwall.com/</loc>
-    <lastmod>2016-06-23T23:44:27+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://circuitwall.com/post/first-post/</loc>
-    <lastmod>2016-06-23T23:44:27+02:00</lastmod>
+    <loc>http://circuitwall.com/services/about/about/</loc>
+  </url>
+  
+  <url>
+    <loc>http://circuitwall.com/services/JavaDevelopment/</loc>
   </url>
   
 </urlset>
