@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://circuitwall.com/</loc>
+    <loc>circuitwall.com/services/about/about/</loc>
   </url>
   
   <url>
-    <loc>http://circuitwall.com/services/about/about/</loc>
+    <loc>circuitwall.com/services/bigdataml/</loc>
   </url>
   
   <url>
-    <loc>http://circuitwall.com/services/JavaDevelopment/</loc>
+    <loc>circuitwall.com/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>circuitwall.com/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>circuitwall.com/services/goingcloud/</loc>
+  </url>
+  
+  <url>
+    <loc>circuitwall.com/services/javadevelopment/</loc>
+  </url>
+  
+  <url>
+    <loc>circuitwall.com/services/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>circuitwall.com/tags/</loc>
+    <priority>0</priority>
   </url>
   
 </urlset>

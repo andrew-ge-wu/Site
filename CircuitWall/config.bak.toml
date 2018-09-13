@@ -1,0 +1,23 @@
+baseurl = "http://circuitwall.com"
+languageCode = "en-us"
+title = "CircuitWall Consultancy"
+canonifyUrls = "true"
+
+
+[params]
+    description = "Expertise. Innovation. Success"
+    favicon = "favicon.ico"
+    googleAnalytics = "UA-41656551-1"
+	
+[[params.social]]
+    title = "email"
+    icon = "envelope-o"
+    url = "mailto:andrew.ge.wu@circuitwall.com"
+[[params.social]]
+    title = "github"
+    icon = "github"
+    url = "https://github.com/circuitwall"
+[[params.social]]
+    title = "linkedin"
+    icon = "linkedin"
+    url = "https://se.linkedin.com/in/andrew-wu-ba92b921"
