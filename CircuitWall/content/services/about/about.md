@@ -2,7 +2,7 @@
 Title: About Me
 Draft: false
 ---
-My name is Andrew Wu, live and work in Stockholm Sweden.
+My name is Andrew Wu, lives and works in Stockholm Sweden.
 
 I am an individual consultant with extensive experience in Java, Bigdata and Machine learning. My services including but not limited to:
 
