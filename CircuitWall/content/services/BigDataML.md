@@ -16,6 +16,7 @@ Big data and machine learning is about three things in my mind:
 
 
 *Key competences and Technologies*
+
 * Big data
     * Apache Storm, Flink, Spark
     * Apache and Confluent Kafka
