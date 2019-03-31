@@ -48,62 +48,7 @@ brand = "CircuitWall"
 [params.navigation.links]
 about     = "About"
 services  = "Services"
+articles  = "Articles"
 portfolio = "Portfolio"
 contact   = "Contact"
 
-
-
-# About section
-[params.about]
-headline    = "I got the experience you need!"
-description = """With more than 10 years experience as Java developer and several years in big data processing, I am the one you are looking for.
-
-[![LinkedIn](img/linkedin.gif)](//se.linkedin.com/in/andrew-wu-ba92b921/)"""
-buttonText  = "Get started!"
-
-# Service section
-[params.services]
-headline = "At your service"
-
-[[params.services.list]]
-        icon = "fa-rocket"
-        title = "JVM performance tuning"
-        description = "Java virtual machine is a work of art, it is easy to get it running, unless you want to push performance to its boundaries."
-
-[[params.services.list]]
-        icon = "fa-database"
-        title = "BigData"
-        description = "Big data is a buzz word. Today we call it big data, tomorrow it is just data. CircuitWall provides design and development service to harvest and process big data into usable data in the data warehouse or power artificial intelligence."
-
-[[params.services.list]]
-        icon = "fa-cloud-upload"
-        title = "Go-to cloud"
-        description = "Cloud can give you competitive edges in cost, scalability and agility. CircuitWall provides consultancy to choose between number of public cloud providers and several private cloud solutions based on your need."
-
-[[params.services.list]]
-        icon = "fa-sitemap"
-        title = "Site building"
-        description = "Full stack development, front and back with details and performance."
-
-
-# Portfolio modals
-[params.portfolio.modal]
-        client = "Client"
-        date = "Date"
-        category = "Category"
-        buttonText = "Close"
-
-# Aside section
-[params.aside]
-        headline = "Check libraries we provide for free"
-
-[params.aside.button]
-        text = "Repository"
-        link = "//github.com/circuitwall/"
-
-# Contact section
-[params.contact]
-        headline = "Let's Get In Touch!"
-        description = "Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!"
-        phone = "+46 76-211-8441"
-        email = "andrew.ge.wu/gmail.com"
