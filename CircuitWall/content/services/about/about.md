@@ -4,9 +4,9 @@ Draft: false
 ---
 My name is Andrew Wu, lives and works in Stockholm Sweden.
 
-I am an individual consultant with extensive experience in Java, Bigdata and Machine learning. My services including but not limited to:
+I am a Bigdata and Machine learning engineer with ten years plus experiences. My services including but not limited to:
 
-* Java service development
+* General application development
 * Big data & Machine learning
 * Cloud technologies (public and private)
 
