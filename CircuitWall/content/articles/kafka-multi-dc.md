@@ -8,21 +8,21 @@ Category: articles
 ---
 
 
-##This is just another approach to full CAP (Consistency, Availability, Partition tolerance).
-
+## This is just another approach to full CAP (Consistency, Availability, Partition tolerance).
+ 
 Here I will try to discuss different setups of kafka clusters in multiple datacenters.
 
 
-###1 DC
+### 1 DC
 * Simple Cluster setup
 * Usecase: Development or Small company
 
-###2 DC or  2.5 DC
+### 2 DC or  2.5 DC
 * Really complex setup
 * Enterprise setup but can not guarantee CAP
-####CP
-####AP
+#### CP
+#### AP
 
-###3 DC or more
+### 3 DC or more
 * CAP maybe?
 * Enterprise setup
