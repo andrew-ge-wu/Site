@@ -1,8 +1,8 @@
 ---
 date : "2019-03-31T14:08:29+02:00"
 draft : false
-title : "Kafka 2: Multi Datacenter Setup"
-img : "articles/kafka_diagram.png"
+title : "Kafka 3: Performance tuning"
+img : "articles/Production-server-configurations-01.jpg"
 weight : 2
 Category: articles
 ---
