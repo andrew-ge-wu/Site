@@ -1,11 +1,10 @@
-
 <div class="content-section-a">
 
     <div class="container">
 
         <div class="row">
             <div class="col-lg-5 col-sm-6">
-                <h2 class="section-heading">          <a class="next" href="https://{{.RelPermalink}}"> {{.Title}}</a>
+                <h2 class="section-heading"><a class="next" href="https://{{.RelPermalink}}"> {{.Title}}</a>
                 </h2>
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
@@ -18,9 +17,7 @@
             {{ end }}
             {{ if .Truncated }}
             <!-- This <div> includes a read more link, but only if the summary is truncated... -->
-            <div>
-                <a href="https://{{ .RelPermalink }}">Read More…</a>
-            </div>
+            <a href="https://{{ .RelPermalink }}">Read More…</a>
             {{ end }}
         </div>
 
