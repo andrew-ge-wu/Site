@@ -4,20 +4,20 @@
 
         <div class="row">
             <div class="col-lg-5 col-sm-6">
-                <h2 class="section-heading"><a class="next" href="https://{{.RelPermalink}}"> {{.Title}}</a>
+                <h2 class="section-heading"><a class="next" href="{{.Permalink}}"> {{.Title}}</a>
                 </h2>
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 {{ .Summary }}
+                {{ if .Truncated }}
+                <!-- This <div> includes a read more link, but only if the summary is truncated... -->
+                <a href="{{.Permalink }}">Read More…</a>
+                {{ end }}
             </div>
             {{ with .Params.img }}
             <div class="col-lg-3 col-lg-offset-4 col-sm-6">
                 <img class="img-responsive" src="img/{{ . }}" alt="">
             </div>
-            {{ end }}
-            {{ if .Truncated }}
-            <!-- This <div> includes a read more link, but only if the summary is truncated... -->
-            <a href="https://{{ .RelPermalink }}">Read More…</a>
             {{ end }}
         </div>
 
