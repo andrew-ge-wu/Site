@@ -132,6 +132,7 @@ As Kafka producer, an application reads from kafka uses consumer API at some poi
 And here comes a bit connection to the number of partitions and a concept called consumer group.
 
 A consumer group is the way to consume records in kafka in parallel. Each partition is consumed by __Exactly one__ consumer in the group and the maximum consumer parallelism for a topic is the number of partitions.
+
 <img src="https://i.stack.imgur.com/32esG.png" alt="Consumer group"/>
 
 
@@ -154,7 +155,98 @@ It indicates how many milliseconds Kafka will wait for the ZooKeeper to respond 
 
 ---
 ### Kafka Connect
+
+Kafka connect is a common framework to transfer records in and out of kafka cluster.
+
+Why use kafka connect?
+
+* Auto-recovery After Failure
+
+To each record, a “source” connector can attach arbitrary “source location” information which it passes to Kafka Connect. Hence, at the time of failure Kafka Connect will automatically provide this information back to the connector. In this way, it can resume where it failed. Additionally, auto recovery for “sink” connectors is even easier.
+
+* Auto-failover
+
+Auto-failover is possible because the Kafka Connect nodes build a Kafka cluster. That means if suppose one node fails the work that it is doing is redistributed to other nodes.
+
+* Simple Parallelism
+
+A connector can define data import or export tasks, especially which execute in parallel.
+
+* Community and existing connectors
+(Incomplete list of existing connectors)
+    * Kafka Connect ActiveMQ Connector
+    * Kafka FileStream Connectors
+    * Kafka Connect HDFS
+    * Kafka Connect JDBC Connector
+    * Kafka Connect S3
+    * Kafka Connect Elasticsearch Connector
+    * Kafka Connect IBM MQ Connector
+    * Kafka Connect JMS ConnectorKafka Connect Cassandra Connector
+    * Kafka Connect GCS
+    * Kafka Connect Microsoft SQL Server Connector
+    * Kafka Connect InfluxDB Connector
+    * Kafka Connect Kinesis Source Connector
+    * Kafka Connect MapR DB Connector
+    * Kafka Connect MQTT Connector
+    * Kafka Connect RabbitMQ Source Connector
+    * Kafka Connect Salesforce Connector
+    * Kafka Connect Syslog Connector
+
+
+
+<img src="https://www.confluent.io/wp-content/uploads/Picture1-1.png" alt="Why kafka" width=600px/>
+
+In case you need to develop a new connector, kafka connect provides:
+
+* A common framework for Kafka connectors
+It standardizes the integration of other data systems with Kafka. Also, simplifies connector development, deployment, and management.
+
+* Distributed and standalone modes
+Scale up to a large, centrally managed service supporting an entire organization or scale down to development, testing, and small production deployments.
+
+* REST interface
+By an easy to use REST API, we can submit and manage connectors to our Kafka Connect cluster.
+
+* Automatic offset management
+However, Kafka Connect can manage the offset commit process automatically even with just a little information from connectors. Hence, connector developers do not need to worry about this error-prone part of connector development.
+
+* Distributed and scalable by default
+It builds upon the existing group management protocol. And to scale up a Kafka Connect cluster we can add more workers.
+
+* Streaming/batch integration
+We can say for bridging streaming and batch data systems, Kafka Connect is an ideal solution.
+
 ---
 ### Schema Registry
 
-## Characteristics
+Schema Registry stores a versioned history of all schemas and allows the evolution of schemas according to the configured compatibility settings. It also provides a plugin to clients that handles schema storage and retrieval for messages that are sent in Avro format.
+
+Why do we need schema in the first place?
+
+Kafka see every record as bytes, so schema works and lives on an the application level. It is very likely the producer and consumer is not the same application, not in the code base and there is a need collaboration between them.
+
+A schema registry is here to:
+
+* Reduce payload
+Instead send data with header, JSON structure, only actual payload needed to pass to Kafka.
+
+* Data validation and evolvement
+Invalid messages will never get to approach to Kafka. Schema can be evolve to the next version without breaking existing parts.
+
+* Schema access
+Instead of distribute class definition, object structure can be distributed via RESTful API alone with all previous versions.
+
+
+<img src="https://www.confluent.io/wp-content/uploads/dwg_SchemaReg_howitworks.png" alt="Schema registry" width=600px/>
+
+In addition to schema management, use schema alone will also reduce record size to kafka.
+
+If you send message using json, 50% or more payload could be wasted by message structure. Using schema registry, you only need to transfer the schema identification alone with payload.
+
+A workflow using schema registry:
+
+* The serializer places a call to the schema registry, to see if it has a format for the data the application wants to publish. If it does, schema registry passes that format to the application’s serializer, which uses it to filter out incorrectly formatted messages.
+
+* After checking the schema is authorized, it’s automatically serialized and there’s no effort you need to put into it. The message will, as expected, be delivered to the Kafka topic.
+
+* Your consumers will handle deserialization, making sure your data pipeline can quickly evolve and continue to have clean data. You simply need to have all applications call the schema registry when publishing.
