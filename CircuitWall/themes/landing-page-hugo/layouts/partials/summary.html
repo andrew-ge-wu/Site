@@ -5,7 +5,7 @@
 
         <div class="row">
             <div class="col-lg-5 col-sm-6">
-                <h2 class="section-heading">          <a class="next" href="{{.RelPermalink}}"> {{.Title}}</a>
+                <h2 class="section-heading">          <a class="next" href="https://{{.RelPermalink}}"> {{.Title}}</a>
                 </h2>
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
@@ -19,7 +19,7 @@
             {{ if .Truncated }}
             <!-- This <div> includes a read more link, but only if the summary is truncated... -->
             <div>
-                <a href="{{ .RelPermalink }}">Read More…</a>
+                <a href="https://{{ .RelPermalink }}">Read More…</a>
             </div>
             {{ end }}
         </div>
