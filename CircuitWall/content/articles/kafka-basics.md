@@ -1,9 +1,8 @@
 ---
-date : "2019-04-01T23:23:29+02:00"
+date : "2019-03-22T23:23:29+02:00"
 draft : false
 title : "Kafka 1: Basics"
 img : "articles/apache-kafka.png"
-weight : 1
 Category: articles
 ---
 

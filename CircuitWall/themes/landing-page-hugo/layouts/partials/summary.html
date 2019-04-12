@@ -3,7 +3,8 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-5 col-sm-6">
+            <div
+                    class="col-lg-5 col-sm-6">
                 <h2 class="section-heading"><a class="next" href="{{.Permalink}}"> {{.Title}}</a>
                 </h2>
                 <hr class="section-heading-spacer">
@@ -11,7 +12,7 @@
                 {{ .Summary }}
                 {{ if .Truncated }}
                 <!-- This <div> includes a read more link, but only if the summary is truncated... -->
-                <a href="{{.Permalink }}">Read More…</a>
+                <br><a href="{{.Permalink }}">Read More…</a>
                 {{ end }}
             </div>
             {{ with .Params.img }}

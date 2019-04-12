@@ -1,9 +1,8 @@
 ---
-date : "2019-03-31T14:08:29+02:00"
+date : "2019-04-31T19:08:29+02:00"
 draft : false
 title : "Kafka 3: Performance tuning"
 img : "articles/Production-server-configurations-01.jpg"
-weight : 2
 Category: articles
 ---
 ### This is just another approach to full CAP (Consistency, Availability, Partition tolerance).
