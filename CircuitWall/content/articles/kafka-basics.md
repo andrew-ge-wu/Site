@@ -6,9 +6,21 @@ img : "articles/apache-kafka.png"
 Category: articles
 ---
 
+***
+As a consultant, it is hard to say "I don't know". With only very limited knowledge of kafka, I started working as DevSecOps a few months ago on a large kafka(confluent) installation for a bank.
+
+I am writing this from my own perspective on what are the key takeaways after working and tuning a multi dc setup. There will be topics missing or you feel important that is not covered here, please let me know.
+
+*This is first of a trilogy: Basics, Multi DC and Performance tuning.*
+***
+
 ---
 ## What is kafka?
-Apache Kafka is an open-source stream-processing software platform developed by LinkedIn
+Apache Kafka is an open-source stream-processing software platform developed by LinkedIn.
+
+* Publish and subscribe to streams of records, similar to a message queue or enterprise messaging system.
+* Store streams of records in a fault-tolerant durable way.
+* Process streams of records as they occur.
 
 ---
 ### Who is using kafka and probably more
