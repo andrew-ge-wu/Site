@@ -31,7 +31,7 @@ favicon = "favicon.ico"
 [[params.social]]
 title = "email"
 icon = "envelope-o"
-url = "mailto:andrew.ge.wu@gmail.com"
+url = "mailto:contact@circuitwall.com"
 [[params.social]]
 title = "github"
 icon = "github"
