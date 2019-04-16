@@ -265,7 +265,7 @@ A workflow using schema registry:
 * Your consumers will handle deserialization, making sure your data pipeline can quickly evolve and continue to have clean data. You simply need to have all applications call the schema registry when publishing.
 
 
-#References
+# References
 
 * https://data-flair.training/blogs/kafka-tutorials-home/
 * https://docs.confluent.io/current/getting-started.html

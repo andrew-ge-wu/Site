@@ -210,7 +210,7 @@ Choose and implement a solution to your need and test them for real before go to
 In general I am interest in site reliability topics, let me know your thoughts!
 
 
-#References
+# References
 
 * https://docs.confluent.io/current/getting-started.html
 * https://kafka.apache.org/documentation/
