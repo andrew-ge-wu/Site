@@ -15,7 +15,7 @@ The multi dc topics come up usually because of two reasons:
 * You need reliability more than performance (to some degree).
 
 I will skip the single DC setup here, as you probably can read upon in basically all
-<a href="{{< relref "kafka-basics.md" >}}">kafka introduction documents</a>.
+<a href="http://{{< relref "kafka-basics.md" >}}">kafka introduction documents</a>.
 
 I consider failure is partition(s) offline and it may be caused by:
 
