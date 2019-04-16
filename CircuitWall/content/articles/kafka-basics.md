@@ -263,3 +263,10 @@ A workflow using schema registry:
 * After checking the schema is authorized, it’s automatically serialized and there’s no effort you need to put into it. The message will, as expected, be delivered to the Kafka topic.
 
 * Your consumers will handle deserialization, making sure your data pipeline can quickly evolve and continue to have clean data. You simply need to have all applications call the schema registry when publishing.
+
+
+#References
+
+* https://data-flair.training/blogs/kafka-tutorials-home/
+* https://docs.confluent.io/current/getting-started.html
+* https://kafka.apache.org/documentation/

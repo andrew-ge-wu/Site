@@ -208,3 +208,9 @@ Although data center failure is rare, it is important to feel safe and prepared 
 Choose and implement a solution to your need and test them for real before go to production. Go for the three data center setup, it can achieve both consistency and availability on the cluster level with little overhead.
 
 In general I am interest in site reliability topics, let me know your thoughts!
+
+
+#References
+
+* https://docs.confluent.io/current/getting-started.html
+* https://kafka.apache.org/documentation/
