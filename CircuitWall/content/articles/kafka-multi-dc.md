@@ -201,7 +201,7 @@ Same performance attribute as two data centers stretch cluster. All requests hav
 
 
 # Summary
-With one data center, Kafka can achieve consistency and availability on the local level. When comes to multi-datacenter setup you can prevent incidents that happen once a few years.
+With one data center, Kafka can achieve consistency and availability on the local level. When comes to multi-datacenter setup you can prevent outage incidents that happen once every a few years.
 
 Although data center failure is rare, it is important to feel safe and prepared for such situations.
 
