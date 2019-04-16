@@ -197,11 +197,11 @@ When a record is delivered, it is guaranteed there is a replica lives on another
 It can suffer a total loss of ONE data center and still available to read and write.
 
 ## Performance
-Same performance attribute as two data centers stretch cluster. All requests have to add latency to sync replica to another data center.
+Same performance attribute as two data centers stretched cluster. All requests have to add latency to sync replica to another data center.
 
 
 # Summary
-With one data center, Kafka can achieve consistency and availability on the local level. When comes to multi-datacenter setup you can prevent outage incidents that happen once every a few years.
+With one data center, Kafka can achieve consistency and availability on the local level. When comes to multi-datacenter setup you can prevent incidents that happen once every few years.
 
 Although data center failure is rare, it is important to feel safe and prepared for such situations.
 

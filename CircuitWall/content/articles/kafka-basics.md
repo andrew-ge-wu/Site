@@ -12,7 +12,7 @@ As a consultant, it is hard to say "I don't know". With only very limited knowle
 
 I am writing this from my own perspective on the key takeaways after working and tuning a multi-dc setup. There will be topics that you feel important that is not covered here, please let me know.
 
-*This is first of a trilogy: Basics, <a href="http://{{< relref "kafka-multi-dc.md" >}}">Multi DC</a> and Performance tuning.*
+*This is first of a trilogy: Basics, <a href="{{< relref "kafka-multi-dc.md" >}}">Multi DC</a> and Performance tuning.*
 ***
 
 ---
@@ -163,7 +163,7 @@ Basically, it enables auto-commit for offsets if the value is true, otherwise no
 * [auto.commit.interval.ms]:
 Basically, it returns how often updated consumed offsets are written to ZooKeeper.
 
-* session.timeout.ms]:
+* [session.timeout.ms]:
 It indicates how many milliseconds Kafka will wait for the ZooKeeper to respond to a request (read or write) before giving up and continuing to consume messages.
 
 ---
