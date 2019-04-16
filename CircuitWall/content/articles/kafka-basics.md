@@ -2,7 +2,7 @@
 date : "2019-03-22T23:23:29+02:00"
 draft : false
 title : "Kafka 1: Basics"
-img : "articles/apache-kafka.png"
+img : "articles/kafka-basics/apache-kafka.png"
 Category: articles
 ---
 
@@ -15,7 +15,7 @@ I am writing this from my own perspective on the key takeaways after working and
 ***
 
 ---
-## What is kafka?
+# What is kafka?
 Apache Kafka is an open-source stream-processing software platform developed by LinkedIn.
 
 * Publish and subscribe to streams of records, similar to a message queue or enterprise messaging system.
@@ -23,15 +23,15 @@ Apache Kafka is an open-source stream-processing software platform developed by 
 * Process streams of records as they occur.
 
 ---
-### Who is using kafka and probably more
+## Who is using kafka and probably more
 https://cwiki.apache.org/confluence/display/KAFKA/Powered+By
 
 ---
-## Kafka components
+# Kafka components
 
 
 ---
-### Kafka Broker
+## Kafka Broker
 One or more of these forms a kafka cluster, or sometimes be called Kafka server.
 
 Also shows that kafka is a brokered message queue system. (A non-brokered message queue system for example: zeromq)
@@ -39,7 +39,7 @@ Also shows that kafka is a brokered message queue system. (A non-brokered messag
 See this post here: https://stackoverflow.com/questions/39529747/advantages-disadvantages-of-brokered-vs-non-brokered-messaging-systems
 
 ---
-#### Kafka Topics
+### Kafka Topics
 Topic, queue or category of messages. Topics are constructed by number of partitions.
 
 Each topic is controlled mainly by several attributes: Number of replicas, Number of partitions and  Retention time.
@@ -55,7 +55,7 @@ There are two types of retention policy:
 * Compact: Logs will be compacted to the keys or say to keep last state/message to such key. This is useful when treating topic as key value database.
 
 ---
-##### Kafka Partitions
+#### Kafka Partitions
 Partition is *THE* atomic level in terms of storage, read, write and replication.
 
 * Number of partitions is the MAX parallelism of a topic.
@@ -77,7 +77,7 @@ Kafka partitions are assigned to brokers at:
 So they are static at most of time, even when *node failure* strikes.
 
 ---
-### Zookeeper
+## Zookeeper
 Zookeeper is an inseparable part of kafka cluster although it is not being used all the time. That has been said, Zookeeper is needed when starting kafka, failure handling but not running kafka.
 
 * Controller election
@@ -138,7 +138,7 @@ Simply, Buffer size.
 “buffer.memory” controls the total amount of memory available to the producer for buffering.
 
 ---
-### Kafka Consumer
+## Kafka Consumer
 
 As Kafka producer, an application reads from kafka uses consumer API at some point.
 And here comes a bit connection to the number of partitions and a concept called consumer group.
@@ -166,7 +166,7 @@ Basically, it returns how often updated consumed offsets are written to ZooKeepe
 It indicates how many milliseconds Kafka will wait for the ZooKeeper to respond to a request (read or write) before giving up and continuing to consume messages.
 
 ---
-### Kafka Connect
+## Kafka Connect
 
 Kafka connect is a common framework to transfer records in and out of kafka cluster.
 
@@ -229,7 +229,7 @@ It builds upon the existing group management protocol. And to scale up a Kafka C
 We can say for bridging streaming and batch data systems, Kafka Connect is an ideal solution.
 
 ---
-### Schema Registry
+## Schema Registry
 
 Schema Registry stores a versioned history of all schemas and allows the evolution of schemas according to the configured compatibility settings. It also provides a plugin to clients that handles schema storage and retrieval for messages that are sent in Avro format.
 

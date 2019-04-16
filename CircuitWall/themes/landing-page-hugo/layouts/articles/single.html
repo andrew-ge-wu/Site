@@ -1,9 +1,12 @@
 {{ partial "head.html" . }}
 <section id="main" class="container">
     <h1 id="title">{{ .Title }}</h1>
+
     <div>
-        Table of content:
-        <p>{{.TableOfContents}}</p>
+        <aside>
+            Table of content:
+            <p>{{.TableOfContents}}</p>
+        </aside>
         <article id="content">
             {{ .Content }}
         </article>
