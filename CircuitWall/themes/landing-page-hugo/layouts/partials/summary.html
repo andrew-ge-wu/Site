@@ -4,14 +4,14 @@
 
         <div class="row">
             <div class="col-lg-5 col-sm-6">
-                <h2 class="section-heading"><a class="next" href="{{.RelPermalink}}"> {{.Title}}</a>
+                <h2 class="section-heading"><a class="next" href="http://{{.RelPermalink}}"> {{.Title}}</a>
                 </h2>
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 {{ .Summary }}
                 {{ if .Truncated }}
                 <!-- This <div> includes a read more link, but only if the summary is truncated... -->
-                <a href="{{ .RelPermalink }}">Read More…</a>
+                <a href="http://{{ .RelPermalink }}">Read More…</a>
                 {{ end }}
             </div>
             {{ with .Params.img }}
