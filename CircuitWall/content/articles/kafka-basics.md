@@ -3,6 +3,7 @@ date : "2019-03-22T23:23:29+02:00"
 draft : false
 title : "Kafka 1: Basics"
 img : "articles/kafka-basics/apache-kafka.png"
+topics: [Kafka]
 Category: articles
 ---
 

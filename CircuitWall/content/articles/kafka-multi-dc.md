@@ -3,6 +3,7 @@ date : "2019-04-15T08:08:29+02:00"
 draft : false
 title : "Kafka 2: Multi Datacenter Setup"
 img : "articles/kafka-multi-dc/kafka_diagram.png"
+topics: [Kafka]
 Category: articles
 ---
 
