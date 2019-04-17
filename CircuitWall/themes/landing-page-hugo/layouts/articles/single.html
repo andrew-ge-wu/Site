@@ -12,6 +12,22 @@
         </article>
     </div>
     <div>
+        <form name="contact" method="POST" data-netlify-recaptcha="true" data-netlify="true">
+            <p>
+                <label>Email: </label>
+                <br><input type="text" name="name" size="100"/>
+            </p>
+            <p>
+                <label>Message:</label>
+                <br><textarea name="message" rows="10" cols="100"></textarea>
+            </p>
+            <div data-netlify-recaptcha="true"></div>
+            <p>
+                <button type="submit">Send</button>
+            </p>
+        </form>
+    </div>
+    <div>
         <section>
             <h4 id="date"> {{ .Date.Format "Mon Jan 2, 2006" }} </h4>
             <h5 id="wordcount"> {{ .WordCount }} Words </h5>
@@ -25,7 +41,6 @@
         <a class="next" href="http://{{.Permalink}}"> >>[{{.Title}}]</a>
         {{ end }}
     </div>
-
 </section>
 
 {{ partial "footer.html" . }}
