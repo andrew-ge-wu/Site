@@ -10,7 +10,7 @@ Category: articles
 ***
 As a consultant, it is hard to say "I don't know". With only very limited knowledge of Kafka, I started working as DevSecOps a few months ago on a large Kafka(confluent) installation for a bank.
 
-I am writing this from my own perspective on the key takeaways after working and tuning a multi-dc setup. There will be topics that you feel important that is not covered here, please let me know.
+I am writing this from my own perspective on the key takeaways after working and tuning this multi-dc setup. There will be topics that you feel important that is not covered here, please let me know so I can improve this.
 
 *This is first of a trilogy: Basics, <a href="{{< relref "kafka-multi-dc.md" >}}">Multi DC</a> and Performance tuning.*
 ***
