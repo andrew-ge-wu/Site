@@ -9,19 +9,22 @@ Category: articles
 
 ***
 
-The multi dc topics come up usually because of two reasons:
+The multi-datacenter topic come up usually because of two reasons:
 
 * Your business now expanded into another part of the world.
-* You need reliability more than performance (to some degree).
+* You need reliability more than pure performance (to some degree).
 
-I will skip the single DC setup here, as you probably can read upon in basically all
+I will skip the single DC setup here, as you can read upon in basically any
 <a href="http://{{< relref "kafka-basics.md" >}}">kafka introduction documents</a>.
 
-I consider failure is partition(s) offline and it may be caused by:
+When comes to multi-datacenter setup there are, in my opinion, there are three major aspects during normal operations and when disaster strikes to consider:
 
-* No in sync replica available.
-* Zookeeper cluster cannot form a quorum and can not elect new leaders.
-* Brokers not available.
+* Consistency: If datacenter fails, will there be data lose when switched to the other datacenter?
+* Availability: Will failure of one datacenter cause partitions offline? this may caused by
+    * No in sync replica available.
+    * Zookeeper cluster cannot form a quorum and can not elect new leaders.
+    * Brokers not available.
+* Performance: What is the latency and/or throughput characteristics?
 
 This is given that the producer receives confirmation of message been written and this is highly related to consistency and performance.
 acks=
@@ -30,13 +33,13 @@ acks=
 * 0:        As long as broker receives it (not even committed), fastest but most likely to create inconsistency.
 * 1:        Whenever the leader is committed. Most common case to balance between speed and data security.
 
-Here are some heavily used abbreviations:
+Before discuss into different setups, here are some heavily used abbreviations:
 
 ```
 nr-dc:      Number of data centers
 nr-rep:     (default.replication.factor) Number of replicas
-isr:        In-sync replicas
-min-isr:    (min.insync.replicas) Minimum in-sync replicas
+ISR:        In-sync replicas
+min-ISR:    (min.insync.replicas) Minimum in-sync replicas
 ```
 
 All the scenarios are based on producer setting acks=1 and topics created using default settings.
@@ -62,7 +65,7 @@ With rack awareness, two data centers joined as one cluster. The rack awareness 
 
 ---
 ### Consistency first configuration
-````min-isr > round(nr-rep/nr-dc)````
+````min-ISR > round(nr-rep/nr-dc)````
 
 The minimum in-sync replica is larger than replicas assigned per data center.
 
@@ -77,7 +80,7 @@ One data center goes down will render partitions goes offline because it just wo
 
 The way to re-enable the cluster is to either
 
-* Change the min-isr setting to less than replica per data center, a manual intervention.
+* Change the min-ISR setting to less than replica per data center, a manual intervention.
 * Re-assign partition allocation, also a manual intervention.
 
 In a single tenant environment, producers need to able to buffer messages locally until the cluster is back functioning.
@@ -90,9 +93,9 @@ Whichever partition leader you are writing to will need to replicate to the othe
 
 ---
 ### Availability first configuration
-````nr-rep – min-isr >= nr-rep/nr-dc````
+````nr-rep – min-ISR >= nr-rep/nr-dc````
 
-There are more nodes can be down at the same time(````nr-rep – min-isr````) then the number of replicas per data center.
+There are more nodes can be down at the same time(````nr-rep – min-ISR````) then the number of replicas per data center.
 
 ![Availability first](/img/articles/kafka-multi-dc/availability-first.png)
 
@@ -106,7 +109,7 @@ There are actually two cases here:
 
 Since there will be so many partitions in the cluster, you won't avoid the first case anyway.
 
-Why this is important? because by default, non-isr cannot be elected as leader replica, if there is no isr available, the partition goes offline.
+Why this is important? because by default, non-ISR cannot be elected as leader replica, if there is no ISR available, the partition goes offline.
 
 To make this work, there is another piece to this puzzle: ```unclean.leader.election.enable=true````.
 
@@ -123,7 +126,7 @@ Here is what happens when one data center fails.
 This setup allows one data center goes down entirely.
 
 #### Performance
-Less min-isr means better performance, especially data not necessarily synced across to the other data center before responding to the producer.
+Less min-ISR means better performance, especially data not necessarily synced across to the other data center before responding to the producer.
 
 ---
 ### 2.5 data centers
@@ -172,20 +175,20 @@ I think this may be one of the biggest advantages. Clients can choose to talk to
 ---
 # Three data centers or more
 
-````min-isr > round(nr-rep/nr-dc)```` same formula as consistency first setup.
+````min-ISR > round(nr-rep/nr-dc)```` same formula as consistency first setup.
 
 A stretched three data centers cluster is, in my opinion, the best setup. Consistency and availability can be achieved with little effort.
 
 
 ```
 nr-rep  = nr-dc * n
-min-isr = n+1
+min-ISR = n+1
 ```
 
 Where n=1/2/3... and n+1 <= number of nodes per data center.
 
 
-Here is a simulation for 3 replicas and min-isr=2 setup:
+Here is a simulation for 3 replicas and min-ISR=2 setup:
 
 ![Three dc setup](/img/articles/kafka-multi-dc/three-dc.png)
 
@@ -205,7 +208,7 @@ With one data center, Kafka can achieve consistency and availability on the loca
 
 Although data center failure is rare, it is important to feel safe and prepared for such situations.
 
-Choose and implement a solution to your need and test them for real before going to production. Go for the three data center setup, it can achieve both consistency and availability on the cluster level with little overhead.
+Choose and implement a solution to your needs, test them before going to production and remember that, you have the chance to customize topics individually as most of the configurations are per topic. If it is possible, go for the three data center setup, it can achieve both consistency and availability on the cluster level with little overhead.
 
 In general, I am interested in site reliability topics, let me know your thoughts!
 
