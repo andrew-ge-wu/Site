@@ -11,5 +11,15 @@ Performance, probably THE reason people choose kafka. But the definition of word
 
 ***
 ---
+# Understand your bottleneck
+---
+## Monitoring
+---
+# Tuning
+---
+## Kafka cluster side
+---
+
+## Client side
 
 ---
