@@ -208,9 +208,9 @@ With one data center, Kafka can achieve consistency and availability on the loca
 
 Although data center failure is rare, it is important to feel safe and prepared for such situations.
 
-Choose and implement a solution to your needs, test them before going to production and remember that, you have the chance to customize topics individually as most of the configurations are per topic. If it is possible, go for the three data center setup, it can achieve both consistency and availability on the cluster level with little overhead.
+Choose and implement a solution to your needs and remember that, you have the chance to customize topics individually as most of the configurations are per topic. If it is possible, go for the three data center setup, it can achieve both consistency and availability on the cluster level with little overhead.
 
-In general, I am interested in site reliability topics, let me know your thoughts!
+I am interested in site reliability topics in general, let me know your thoughts!
 
 
 # References
