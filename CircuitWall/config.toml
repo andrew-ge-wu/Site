@@ -1,6 +1,7 @@
 languageCode = "en-us"
 title = "CircuitWall Consultancy"
 theme = "landing-page-hugo"
+baseurl = "https://circuitwall.net"
 
 [params]
 
