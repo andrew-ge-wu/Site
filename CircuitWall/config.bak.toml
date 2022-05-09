@@ -1,4 +1,4 @@
-baseurl = "http://circuitwall.com"
+baseurl = "http://circuitwall.net"
 languageCode = "en-us"
 title = "CircuitWall Consultancy"
 canonifyUrls = "true"
@@ -12,7 +12,7 @@ canonifyUrls = "true"
 [[params.social]]
     title = "email"
     icon = "envelope-o"
-    url = "mailto:andrew.ge.wu@circuitwall.com"
+    url = "mailto:andrew.ge.wu@circuitwall.net"
 [[params.social]]
     title = "github"
     icon = "github"
