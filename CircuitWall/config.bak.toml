@@ -1,4 +1,4 @@
-baseurl = "http://circuitwall.net"
+baseurl = "https://circuitwall.net"
 languageCode = "en-us"
 title = "CircuitWall Consultancy"
 canonifyUrls = "true"
