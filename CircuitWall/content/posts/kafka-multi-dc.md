@@ -2,9 +2,9 @@
 date : "2019-04-15T08:08:29+02:00"
 draft : false
 title : "Kafka 2: Multi Datacenter Setup"
-img : "articles/kafka-multi-dc/kafka_diagram.png"
 topics: [Kafka]
 Category: articles
+weight: 2
 ---
 
 ***
@@ -13,9 +13,6 @@ The multi-datacenter topic come up usually because of two reasons:
 
 * Your business now expanded into another part of the world.
 * You need reliability more than pure performance (to some degree).
-
-I will skip the single DC setup here, as you can read upon in basically any
-<a href="http://{{< relref "kafka-basics.md" >}}">kafka introduction documents</a>.
 
 When comes to multi-datacenter setup there are, in my opinion, there are three major aspects during normal operations and when disaster strikes to consider:
 
