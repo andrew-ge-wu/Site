@@ -2,9 +2,9 @@
 date : "2019-03-22T23:23:29+02:00"
 draft : false
 title : "Kafka 1: Basics"
-img : "articles/kafka-basics/apache-kafka.png"
 topics: [Kafka]
 Category: articles
+weight: 1
 ---
 
 ***
@@ -12,7 +12,6 @@ As a consultant, it is hard to say "I don't know". With only very limited knowle
 
 I am writing this from my own perspective on the key takeaways after working and tuning this multi-dc setup. There will be topics that you feel important that is not covered here, please let me know so I can improve this.
 
-*This is first of a trilogy: Basics, <a href="{{< relref "kafka-multi-dc.md" >}}">Multi DC</a> and Performance tuning.*
 ***
 
 ---

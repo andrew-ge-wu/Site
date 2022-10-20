@@ -21,6 +21,7 @@ Big data and machine learning is about three things in my mind:
     * Apache Storm, Flink, Spark
     * Apache and Confluent Kafka
     * Cassandra, Riak databases
+    * AWS Athena
 * Machine Learning
     * Python, Tensorflow, Keras, Scikit
     * Evolution Algorithm
