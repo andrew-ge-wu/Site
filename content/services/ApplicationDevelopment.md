@@ -5,8 +5,11 @@ Category: Services
 Draft: false
 ---
 
-Ten years plus of professional experience taught me how to build maintainable service with performance.
-I deliver any part of a service, mainly focused at backend.
+I have over 15 years of experience in application development, and I am proficient in a wide range of languages and technologies, including Java SE/EE, Spring, Springboot, Python 3, Golang, Javascript, CSS, REST APIs, MySQL, MongoDB, and Riak.
+
+I have a strong foundation in software engineering principles, and I am passionate about building maintainable, high-performance applications. I am also a strong advocate for continuous integration and continuous delivery (CI/CD).
+
+I am confident that I have the skills and experience that you are looking for in an application developer. I am eager to learn new things and I am always looking for ways to improve my skills. I am confident that I can make a significant contribution to your team.
 
 *Key competences and Technologies*
 
@@ -16,3 +19,5 @@ I deliver any part of a service, mainly focused at backend.
 * Javascript, CSS
 * REST API
 * MySQL, MongoDB, Riak
+* MLOps
+* Vertex AI

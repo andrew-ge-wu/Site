@@ -4,7 +4,7 @@ draft : false
 title : "Kafka 2: Multi Datacenter Setup"
 topics: [Kafka]
 Category: articles
-weight: 2
+weight: 4
 ---
 
 ***
