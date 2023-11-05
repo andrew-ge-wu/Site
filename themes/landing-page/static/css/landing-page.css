@@ -18,7 +18,7 @@ h4,
 h5,
 h6 {
     font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .lead {
@@ -163,4 +163,19 @@ footer {
 
 p.copyright {
     margin: 15px 0 0;
+}
+
+img{
+    max-width: 600px;
+    float: right;
+    padding: 5px;
+    margin: 5px
+}
+
+.strong{
+    font-weight: bold;
+}
+
+.text-center{
+    text-align:left
 }

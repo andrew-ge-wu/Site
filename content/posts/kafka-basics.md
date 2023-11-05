@@ -4,7 +4,7 @@ draft : false
 title : "Kafka 1: Basics"
 topics: [Kafka]
 Category: articles
-weight: 1
+weight: 3
 ---
 
 ***

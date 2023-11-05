@@ -12,3 +12,6 @@ install-hugo:
 # Set up environment to generate site
 setup:
 	hugo
+
+serve:
+	hugo serve
