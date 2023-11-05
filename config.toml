@@ -1,0 +1,28 @@
+languageCode = "en-us"
+title = "CircuitWall Consultancy"
+theme = "landing-page"
+baseurl = "https://circuitwall.net"
+
+[params]
+    name = "Andrew Wu"
+
+    # To change the background of the hero section, replace the 'header.jpg' at './static/img' with your own.
+    description     = "Expertise. Innovation. Success"
+    subtitle   = "A Java, Spring, JVM performance tuning, bigdata, realtime processing and machine learning consultancy."
+    buttonText = "Find out more"
+
+    # The path must be relative to the static folder
+    favicon = "static/favicon.ico"
+
+[[params.social]]
+    title = "email"
+    icon = "envelope-o"
+    url = "mailto:contact@circuitwall.net"
+[[params.social]]
+    title = "github"
+    icon = "github"
+    url = "https://github.com/CircuitWall"
+[[params.social]]
+    title = "linkedin"
+    icon = "linkedin"
+    url = "http://se.linkedin.com/in/andrew-wu-ba92b921"
