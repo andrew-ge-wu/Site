@@ -1,13 +1,13 @@
 ---
 date : "2023-11-03T17:23:29+02:00"
 draft : false
-title : "Introduce Ratchet at NDSML Summit 2023"
+title : "Introduce Ratchet at NDSML Summit & Google FSI 2023"
 topics: [Vertex AI, MLOps]
 Category: articles
 weight: 1
 ---
 I had the pleasure of presenting “Elevating Your Existing Models to Vertex AI” at the **NDSML Summit 2023**, the annual event that brings together the Data Science and Machine Learning community in the Nordics. My co-presenter Lef Filippakis and I are experts in the field of AI and cloud computing.
-![Alt text](</img/articles/ndsml2023/Copy of IMG_5079.jpg>)
+![Alt text](</img/articles/ndsml2023/1700060337766.jpeg>)
 **Vertex AI** is a unified platform for building and managing machine learning solutions across the entire ML lifecycle. It allows you to use the best of Google Cloud’s AI tools and services in a seamless and integrated way. Whether you want to train, deploy, monitor, or optimize your models, Vertex AI has you covered.
 
 In our presentation, we showed how to take advantage of Vertex AI’s features and benefits using existing models that you have already built and trained. We demonstrated how to migrate models from TensorFlow, PyTorch, scikit-learn, and XGBoost to Vertex AI with ease. We also highlighted the benefits of using Vertex AI, such as its ability to scale to meet your needs, its support for multiple frameworks and languages, and its integration with other Google Cloud services.
