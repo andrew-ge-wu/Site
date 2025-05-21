@@ -1,23 +1,53 @@
 ---
-Title: General Application Development
+Title: Enterprise Application Development
 Img: services/duke.jpg
 Category: Services
 Draft: false
 ---
 
-I have over 15 years of experience in application development, and I am proficient in a wide range of languages and technologies, including Java SE/EE, Spring, Springboot, Python 3, Golang, Javascript, CSS, REST APIs, MySQL, MongoDB, and Riak.
+Leverage 15+ years of enterprise software development expertise to build robust, scalable, and maintainable applications that drive business value. Specializing in modern architecture patterns, cloud-native development, and MLOps integration, I deliver solutions that meet both current needs and future scalability requirements.
 
-I have a strong foundation in software engineering principles, and I am passionate about building maintainable, high-performance applications. I am also a strong advocate for continuous integration and continuous delivery (CI/CD).
+*Core Services*
 
-I am confident that I have the skills and experience that you are looking for in an application developer. I am eager to learn new things and I am always looking for ways to improve my skills. I am confident that I can make a significant contribution to your team.
+* **Enterprise Solutions**
+  * Microservices architecture design and implementation
+  * Cloud-native application development
+  * Legacy system modernization
+  * API design and integration
+  * Performance optimization and scaling
 
-*Key competences and Technologies*
+* **Technology Stack**
+  * Backend Development
+    * Java SE/EE with Spring Framework & Spring Boot (10+ years)
+    * Python 3 for web services and ML integration (5+ years)
+    * Golang for high-performance systems (2+ years)
+  * Frontend & API
+    * Modern JavaScript frameworks
+    * RESTful API design and implementation
+    * GraphQL services
+  * Database & Storage
+    * Relational: MySQL, PostgreSQL
+    * NoSQL: MongoDB, Riak
+    * Cache systems: Redis, Memcached
 
-* Java SE/EE Spring, Springboot (10 years)
-* Python 3 (5 years)
-* Golang (2 years)
-* Javascript, CSS
-* REST API
-* MySQL, MongoDB, Riak
-* MLOps
-* Vertex AI
+* **MLOps & AI Integration**
+  * ML model deployment and serving
+  * Vertex AI implementation
+  * Model monitoring and maintenance
+  * Automated ML pipelines
+  * Real-time prediction services
+
+*Development Approach*
+* Agile methodology with CI/CD practices
+* Test-driven development (TDD)
+* Infrastructure as Code (IaC)
+* Automated testing and quality assurance
+* Comprehensive documentation
+* Security-first design principles
+
+*Benefits*
+* Reduced time-to-market for new features
+* Improved application performance and reliability
+* Scalable and maintainable codebase
+* Lower maintenance costs
+* Future-proof architecture

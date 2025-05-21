@@ -8,22 +8,23 @@ weight: 3
 ---
 
 ***
-As a consultant, it is hard to say "I don't know". With only very limited knowledge of Kafka, I started working as DevSecOps a few months ago on a large Kafka(confluent) installation for a bank.
+As a consultant, admitting "I don't know" can be challenging. A few months ago, I began working as a DevSecOps engineer on a large Kafka (Confluent) installation for a bank, despite having only limited knowledge of Kafka at the time.
 
-I am writing this from my own perspective on the key takeaways after working and tuning this multi-dc setup. There will be topics that you feel important that is not covered here, please let me know so I can improve this.
+I'm writing this article to share key insights gained from working on and tuning this multi-datacenter setup. While I may not cover every important topic, I welcome feedback to help improve this guide.
 
 ***
 
 ---
 # What is Kafka?
-Apache Kafka is an open-source stream-processing software platform developed by LinkedIn.
+Apache Kafka is an open-source stream-processing software platform originally developed by LinkedIn. It provides three core capabilities:
 
-* Publish and subscribe to streams of records, similar to a message queue or enterprise messaging system.
-* Store streams of records in a fault-tolerant durable way.
-* Process streams of records as they occur.
+* Publishing and subscribing to streams of records, similar to a message queue or enterprise messaging system
+* Storing streams of records in a fault-tolerant, durable way
+* Processing streams of records in real-time
 
 ---
-## Who is using Kafka and probably more
+## Who is Using Kafka?
+For an extensive list of companies and organizations using Kafka, visit:
 https://cwiki.apache.org/confluence/display/KAFKA/Powered+By
 
 ---
@@ -82,7 +83,7 @@ Zookeeper is an inseparable part of the Kafka cluster although it is not being u
 
 * Controller election
 
-The controller is one of the most important broking entity in a Kafka ecosystem, and it also has the responsibility to maintain the leader-follower relationship across all the partitions. If a node by some reason is shutting down, it’s the controller’s responsibility to tell all the replicas to act as partition leaders in order to fulfill the duties of the partition leaders on the node that is about to fail. So, whenever a node shuts down, a new controller can be elected and it can also be made sure that at any given time, there is only one controller and all the follower nodes have agreed on that.
+The controller is one of the most important broking entity in a Kafka ecosystem, and it also has the responsibility to maintain the leader-follower relationship across all the partitions. If a node by some reason is shutting down, it's the controller's responsibility to tell all the replicas to act as partition leaders in order to fulfill the duties of the partition leaders on the node that is about to fail. So, whenever a node shuts down, a new controller can be elected and it can also be made sure that at any given time, there is only one controller and all the follower nodes have agreed on that.
 
 * Configuration Of Topics
 
@@ -101,7 +102,7 @@ Zookeeper also maintains a list of all the brokers that are functioning at any g
 
 Any component in this landscape that sends data to Kafka is by definition a Kafka producer and uses producer API at some point.
 
-Here, we are listing the Kafka Producer API’s main configuration settings:
+Here, we are listing the Kafka Producer API's main configuration settings:
 
 * [client.id]:
 It identifies the producer application.
@@ -116,7 +117,7 @@ Basically, it controls the criteria for producer requests that are considered co
     * 1: Make sure when in-sync replicas are written. (Fast, also depends on min-ISR settings)
 
 * [retries]:
-“Retries” means if somehow producer request fails, then automatically retry with the specific value.
+"Retries" means if somehow producer request fails, then automatically retry with the specific value.
 
 * [bootstrap.servers]:
 It bootstraps list of brokers.
@@ -135,7 +136,7 @@ A value for the serializer interface.
 Simply, Buffer size.
 
 * [buffer.memory]:
-“buffer.memory” controls the total amount of memory available to the producer for buffering.
+"buffer.memory" controls the total amount of memory available to the producer for buffering.
 
 ---
 ## Kafka Consumer
@@ -174,7 +175,7 @@ Why use Kafka connect?
 
 * Auto-recovery After Failure
 
-To each record, a “source” connector can attach arbitrary “source location” information which it passes to Kafka Connect. Hence, at the time of failure Kafka Connect will automatically provide this information back to the connector. In this way, it can resume where it failed. Additionally, auto recovery for “sink” connectors is even easier.
+To each record, a "source" connector can attach arbitrary "source location" information which it passes to Kafka Connect. Hence, at the time of failure Kafka Connect will automatically provide this information back to the connector. In this way, it can resume where it failed. Additionally, auto recovery for "sink" connectors is even easier.
 
 * Auto-failover
 
@@ -257,9 +258,9 @@ If you send a message using JSON, 50% or more payload could be wasted by message
 
 A workflow using a schema registry:
 
-* The serializer places a call to the schema registry, to see if it has a format for the data the application wants to publish. If it does, schema registry passes that format to the application’s serializer, which uses it to filter out incorrectly formatted messages.
+* The serializer places a call to the schema registry, to see if it has a format for the data the application wants to publish. If it does, schema registry passes that format to the application's serializer, which uses it to filter out incorrectly formatted messages.
 
-* After checking the schema is authorized, it’s automatically serialized and there’s no effort you need to put into it. The message will, as expected, be delivered to the Kafka topic.
+* After checking the schema is authorized, it's automatically serialized and there's no effort you need to put into it. The message will, as expected, be delivered to the Kafka topic.
 
 * Your consumers will handle deserialization, making sure your data pipeline can quickly evolve and continue to have clean data. You simply need to have all applications call the schema registry when publishing.
 

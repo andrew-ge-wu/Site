@@ -9,28 +9,27 @@ weight: 4
 
 ***
 
-The multi-datacenter topic come up usually because of two reasons:
+Organizations typically consider multi-datacenter setups for two main reasons:
 
-* Your business now expanded into another part of the world.
-* You need reliability more than pure performance (to some degree).
+* Business expansion into different geographical regions
+* Enhanced reliability requirements that take precedence over pure performance
 
-When comes to multi-datacenter setup there are, in my opinion, there are three major aspects during normal operations and when disaster strikes to consider:
+When implementing a multi-datacenter setup, there are three critical aspects to consider during both normal operations and disaster scenarios:
 
-* Consistency: If datacenter fails, will there be data lose when switched to the other datacenter?
-* Availability: Will failure of one datacenter cause partitions offline? this may caused by
-    * No in sync replica available.
-    * Zookeeper cluster cannot form a quorum and can not elect new leaders.
-    * Brokers not available.
-* Performance: What is the latency and/or throughput characteristics?
+* Consistency: Will data be lost if a datacenter fails and operations switch to another datacenter?
+* Availability: Will a datacenter failure cause partitions to go offline? This can happen due to:
+    * No in-sync replicas being available
+    * Zookeeper cluster failing to form a quorum and elect new leaders
+    * Broker unavailability
+* Performance: What are the expected latency and throughput characteristics?
 
-This is given that the producer receives confirmation of message been written and this is highly related to consistency and performance.
-acks=
+These considerations are closely tied to how producers receive confirmation of message writes, which is controlled by the `acks` parameter:
 
-* -1/all:   All ISR reported back and acknowledged commit, slowest but consistent.
-* 0:        As long as broker receives it (not even committed), fastest but most likely to create inconsistency.
-* 1:        Whenever the leader is committed. Most common case to balance between speed and data security.
+* `-1/all`: All In-Sync Replicas (ISR) must report back and acknowledge the commit - slowest but most consistent
+* `0`: Messages are considered written as soon as the broker receives them (before commit) - fastest but least consistent
+* `1`: Messages are confirmed when the leader commits them - most common setting balancing speed and data security
 
-Before discuss into different setups, here are some heavily used abbreviations:
+Before discussing different setups, here are some key abbreviations used throughout this article:
 
 ```
 nr-dc:      Number of data centers
@@ -39,7 +38,7 @@ ISR:        In-sync replicas
 min-ISR:    (min.insync.replicas) Minimum in-sync replicas
 ```
 
-All the scenarios are based on producer setting acks=1 and topics created using default settings.
+All scenarios discussed below assume producer setting `acks=1` and topics created with default settings.
 
 ---
 # Two data centers and 2.5 data centers
