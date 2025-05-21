@@ -14,6 +14,8 @@ baseurl = "https://circuitwall.net"
     # The path must be relative to the static folder
     favicon = "static/favicon.ico"
 
+    ignoreLogs = ['warning-goldmark-raw-html']
+
 [[params.social]]
     title = "email"
     icon = "envelope-o"
@@ -26,3 +28,8 @@ baseurl = "https://circuitwall.net"
     title = "linkedin"
     icon = "linkedin"
     url = "http://se.linkedin.com/in/andrew-wu-ba92b921"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

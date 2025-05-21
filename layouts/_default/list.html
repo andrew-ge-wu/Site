@@ -1,0 +1,140 @@
+{{ partial "head.html" . }}
+{{ partial "header.html" . }}
+
+<section class="posts-list">
+    <div class="container-wide">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Blog Posts</h2>
+                <hr class="primary">
+            </div>
+        </div>
+
+        <div class="row">
+            {{ range .Pages }}
+            <div class="col-lg-6 col-md-6 mb-4">
+                <article class="post-card">
+                    {{ with .Params.img }}
+                    <div class="post-img-container">
+                        <img class="post-img" src="/img/{{ . }}" alt="{{ $.Title }}">
+                    </div>
+                    {{ end }}
+                    <div class="post-content">
+                        <h3 class="post-title">{{ .Title }}</h3>
+                        <div class="post-meta">
+                            <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+                        </div>
+                        <div class="post-summary content-with-keywords">
+                            {{ .Summary }}
+                        </div>
+                        <a href="{{ .RelPermalink }}" class="read-more">Read More →</a>
+                    </div>
+                </article>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+
+    <style>
+        .container-wide {
+            width: 100%;
+            max-width: 1400px;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0 30px;
+        }
+        .posts-list {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        .section-heading {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        hr.primary {
+            width: 50px;
+            height: 3px;
+            background-color: #fed136;
+            border: none;
+            margin: 20px auto 50px;
+        }
+        .post-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .post-img-container {
+            height: 200px;
+            overflow: hidden;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .post-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .post-img-container:hover .post-img {
+            transform: scale(1.05);
+        }
+        .post-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-title {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .post-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .post-summary {
+            color: #333;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .read-more {
+            color: #fed136;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+        .read-more:hover {
+            color: #e6bc2f;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .container-wide {
+                padding: 0 15px;
+            }
+            .post-img-container {
+                height: 180px;
+            }
+            .post-content {
+                padding: 20px;
+            }
+            .post-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</section>
+
+{{ partial "footer.html" . }}
