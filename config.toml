@@ -3,18 +3,41 @@ title = "CircuitWall Consultancy"
 theme = "landing-page"
 baseurl = "https://circuitwall.net"
 
+# SEO and Performance optimizations
+enableRobotsTXT = true
+enableGitInfo = true
+enableEmoji = true
+
+# Minification for production
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+
+# Image processing
+[imaging]
+  quality = 85
+  resampleFilter = "lanczos"
+
 [params]
     name = "Andrew Wu"
-
-    # To change the background of the hero section, replace the 'header.jpg' at './static/img' with your own.
-    description     = "Expertise. Innovation. Success"
-    subtitle   = "A Java, Spring, JVM performance tuning, bigdata, realtime processing and machine learning consultancy."
+    
+    # SEO improvements
+    description = "Expert Java, Spring, JVM performance tuning, big data, real-time processing and machine learning consultancy by Andrew Wu in Stockholm, Sweden."
+    keywords = "Java consultancy, Spring Framework, JVM performance, big data, machine learning, MLOps, Stockholm consultant"
+    author = "Andrew Wu"
+    
+    # Original params
+    subtitle = "A Java, Spring, JVM performance tuning, bigdata, realtime processing and machine learning consultancy."
     buttonText = "Find out more"
-
-    # The path must be relative to the static folder
     favicon = "static/favicon.ico"
-
     ignoreLogs = ['warning-goldmark-raw-html']
+    
+    # Custom CSS files
+    custom_css = ["css/performance.css"]
 
 [[params.social]]
     title = "email"
