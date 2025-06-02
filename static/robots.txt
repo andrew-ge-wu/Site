@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://circuitwall.net/sitemap.xml
+
+# Crawl-delay for bots
+Crawl-delay: 1
+
+# Block crawling of development files
+Disallow: /dev/
+Disallow: /*.json$
+Disallow: /admin/
