@@ -1,0 +1,178 @@
+{{ partial "head.html" . }}
+{{ partial "header.html" . }}
+
+{{ $hasHero := false }}
+{{ $heroSmall := "" }}
+{{ $heroMedium := "" }}
+{{ $heroLarge := "" }}
+{{ $heroW := 0 }}
+{{ $heroH := 0 }}
+{{ with .Params.img }}
+  {{ $heroPath := printf "img/%s" . }}
+  {{ with resources.Get $heroPath }}
+    {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
+      {{ $small := .Resize "800x webp q82" }}
+      {{ $medium := .Resize "1280x webp q82" }}
+      {{ $large := .Resize "1920x webp q80" }}
+      {{ $hasHero = true }}
+      {{ $heroSmall = $small.RelPermalink }}
+      {{ $heroMedium = $medium.RelPermalink }}
+      {{ $heroLarge = $large.RelPermalink }}
+      {{ $heroW = $medium.Width }}
+      {{ $heroH = $medium.Height }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Reading-progress bar */}}
+<div class="reading-progress" data-reading-progress aria-hidden="true">
+  <div class="reading-progress-bar" data-reading-progress-bar></div>
+</div>
+
+{{/* Hero with title overlay */}}
+{{ if $hasHero }}
+<header class="post-hero-section">
+  <div class="post-hero-image">
+    <img src="{{ $heroMedium }}"
+         srcset="{{ $heroSmall }} 800w, {{ $heroMedium }} 1280w, {{ $heroLarge }} 1920w"
+         sizes="100vw"
+         width="{{ $heroW }}" height="{{ $heroH }}"
+         alt="" fetchpriority="high" decoding="async">
+    <div class="post-hero-overlay"></div>
+  </div>
+  <div class="post-hero-inner container">
+    <a href="/posts/" class="post-hero-back">&larr; All articles</a>
+    {{ with .Params.tags }}
+    <div class="post-hero-tags">
+      {{ range first 3 . }}<a class="post-hero-tag" href="/tags/{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+    </div>
+    {{ end }}
+    <h1 class="post-hero-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="post-hero-desc">{{ . }}</p>{{ end }}
+    <div class="post-hero-meta">
+      {{ with .Date }}<time datetime="{{ .Format "2006-01-02" }}">{{ .Format "January 2, 2006" }}</time>{{ end }}
+      {{ if and .Lastmod (gt .Lastmod .Date) }} &middot; <span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>{{ end }}
+      {{ with .Params.author }} &middot; <span>{{ . }}</span>{{ end }}
+      {{ if .ReadingTime }} &middot; <span>{{ .ReadingTime }} min read</span>{{ end }}
+      {{ if .WordCount }} &middot; <span>{{ .WordCount }} words</span>{{ end }}
+    </div>
+  </div>
+</header>
+{{ end }}
+
+<section class="single-post {{ if not $hasHero }}single-post--no-hero{{ end }}">
+  <div class="container post-layout">
+
+    {{/* Optional: TOC sidebar */}}
+    {{ $showToc := and (eq .Section "posts") (gt (len .TableOfContents) 30) }}
+    {{ if $showToc }}
+    <aside class="post-toc" data-post-toc>
+      <div class="post-toc-inner">
+        <h2 class="post-toc-title">On this page</h2>
+        <nav>{{ .TableOfContents }}</nav>
+      </div>
+    </aside>
+    {{ end }}
+
+    <article class="post-article">
+      {{ if not $hasHero }}
+      <header class="post-header">
+        <h1 class="post-title">{{ .Title }}</h1>
+        <div class="post-meta">
+          {{ with .Date }}<time datetime="{{ .Format "2006-01-02" }}">{{ .Format "January 2, 2006" }}</time>{{ end }}
+          {{ if and .Lastmod (gt .Lastmod .Date) }} &middot; <span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>{{ end }}
+          {{ with .Params.author }} &middot; <span>{{ . }}</span>{{ end }}
+          {{ if .ReadingTime }} &middot; <span>{{ .ReadingTime }} min read</span>{{ end }}
+        </div>
+      </header>
+      {{ end }}
+
+      <div class="post-body content-with-keywords" data-post-body>
+        {{ .Content }}
+      </div>
+
+      {{/* Share + tags row */}}
+      <footer class="post-footer">
+        {{ with .Params.tags }}
+        <div class="post-tags">
+          {{ range . }}<a class="post-tag" href="/tags/{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+        </div>
+        {{ end }}
+
+        <div class="post-share" aria-label="Share this article">
+          <span class="post-share-label">Share</span>
+          {{ $url := .Permalink }}
+          {{ $title := .Title }}
+          <a class="post-share-btn" href="https://twitter.com/intent/tweet?text={{ $title | urlquery }}&url={{ $url | urlquery }}" target="_blank" rel="noopener noreferrer external" aria-label="Share on X">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M18.244 2H21l-6.51 7.444L22 22h-6.844l-4.788-6.262L4.8 22H2.043l6.96-7.96L2 2h7.012l4.33 5.73L18.244 2Zm-2.4 18h1.832L7.236 4H5.27l10.574 16Z"/></svg>
+          </a>
+          <a class="post-share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ $url | urlquery }}" target="_blank" rel="noopener noreferrer external" aria-label="Share on LinkedIn">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.34 18.34V9.67H5.67v8.67h2.67Zm-1.34-9.86a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1Zm11.34 9.86v-4.96c0-2.66-1.42-3.9-3.31-3.9-1.52 0-2.2.83-2.58 1.42V9.67h-2.67c.04.78 0 8.67 0 8.67h2.67v-4.84c0-.24.02-.48.09-.65.19-.48.63-.98 1.36-.98.96 0 1.34.73 1.34 1.8v4.67h2.67Z"/></svg>
+          </a>
+          <button class="post-share-btn" type="button" data-copy-link aria-label="Copy link">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M10.59 13.41a1 1 0 0 1 0-1.41l3.18-3.18a3 3 0 1 1 4.24 4.24l-1.41 1.42a1 1 0 1 1-1.42-1.42l1.42-1.41a1 1 0 1 0-1.42-1.42L11.99 14a1 1 0 0 1-1.4-.59ZM13.4 10.6a1 1 0 0 1 0 1.4l-3.18 3.19a1 1 0 1 0 1.42 1.41l1.41-1.41a1 1 0 1 1 1.42 1.41l-1.42 1.41a3 3 0 1 1-4.24-4.24l3.18-3.18a1 1 0 0 1 1.41 0Z"/></svg>
+            <span class="post-share-toast" data-copy-toast>Copied</span>
+          </button>
+        </div>
+      </footer>
+
+      {{/* Prev / Next (chronological: Previous = older, Next = newer) */}}
+      {{ $prev := .PrevInSection }}
+      {{ $next := .NextInSection }}
+      {{ if or $prev $next }}
+      <nav class="post-pager" aria-label="Article navigation">
+        {{ with $prev }}
+          <a class="post-pager-link post-pager-prev" href="{{ .RelPermalink }}">
+            <span class="post-pager-label">← Previous</span>
+            <span class="post-pager-title">{{ .Title }}</span>
+          </a>
+        {{ else }}<span></span>{{ end }}
+        {{ with $next }}
+          <a class="post-pager-link post-pager-next" href="{{ .RelPermalink }}">
+            <span class="post-pager-label">Next →</span>
+            <span class="post-pager-title">{{ .Title }}</span>
+          </a>
+        {{ else }}<span></span>{{ end }}
+      </nav>
+      {{ end }}
+
+      {{/* Related posts (shared tags) */}}
+      {{ $related := .Site.RegularPages.Related . | first 3 }}
+      {{ if $related }}
+      <section class="post-related" aria-label="Related articles">
+        <h2 class="post-related-title">Related reading</h2>
+        <div class="posts-grid posts-grid--compact">
+          {{ range $related }}
+          <article class="post-card-modern post-card-modern--compact">
+            {{ with .Params.img }}
+              {{ $heroPath := printf "img/%s" . }}
+              {{ with resources.Get $heroPath }}
+                {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
+                  {{ $thumb := .Resize "480x webp q82" }}
+                  <a href="{{ $.RelPermalink }}" class="post-card-img" aria-hidden="true" tabindex="-1">
+                    <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="" loading="lazy" decoding="async">
+                  </a>
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            <div class="post-card-body">
+              <div class="post-card-meta">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+                {{ if .ReadingTime }} &middot; {{ .ReadingTime }} min{{ end }}
+              </div>
+              <h3 class="post-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            </div>
+          </article>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+    </article>
+  </div>
+</section>
+
+<button type="button" class="back-to-top" data-back-to-top aria-label="Back to top" hidden>
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 4 4 12h5v8h6v-8h5z"/></svg>
+</button>
+
+{{ partial "footer.html" . }}

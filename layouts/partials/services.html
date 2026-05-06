@@ -1,72 +1,39 @@
-<section id="services">
+<section id="services" class="services-section">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-heading">Services</h2>
+      <hr class="section-heading-spacer center">
+      <p class="section-lead">End-to-end consulting across the JVM, data, and ML stack.</p>
+    </header>
 
-<!-- Page Content -->
- {{ range $index, $element :=  .Site.RegularPages }}{{ if or (eq .Section "services") (eq .Section "post") }}
-    {{ if modBool $index 2 }}
-    <div class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                {{ if .Params.img }}
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">{{ .Title }}</h2>
-                    {{ .Content }}
+    <div class="services-grid">
+      {{ range where .Site.RegularPages "Section" "services" }}
+        <article class="service-card-modern">
+          {{ with .Params.img }}
+            {{ $heroPath := printf "img/%s" . }}
+            {{ with resources.Get $heroPath }}
+              {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
+                {{ $thumb := .Resize "800x webp q82" }}
+                <div class="service-card-img">
+                  <img src="{{ $thumb.RelPermalink }}"
+                       width="{{ $thumb.Width }}" height="{{ $thumb.Height }}"
+                       alt="{{ $.Title }}" loading="lazy" decoding="async">
                 </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="img/{{ .Params.img  }}" alt="">
-                </div>
-                {{ else }}
-                <div>
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">{{ .Title }}</h2>
-                    {{ .Content }}
-                </div>
-                {{ end }}
+              {{ end }}
+            {{ else }}
+              <div class="service-card-img">
+                <img src="/img/{{ . }}" alt="{{ $.Title }}" loading="lazy" decoding="async">
+              </div>
+            {{ end }}
+          {{ end }}
+          <div class="service-card-body">
+            <h3 class="service-card-title">{{ .Title }}</h3>
+            <div class="service-card-content content-with-keywords">
+              {{ .Content }}
             </div>
-
-        </div>
-        <!-- /.container -->
-
+          </div>
+        </article>
+      {{ end }}
     </div>
-    <!-- /.content-section-a -->
-    {{ else }}
-
-    <div class="content-section-b">
-
-        <div class="container">
-
-            <div class="row">
-                {{ if .Params.img }}
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">{{ .Title }}</h2>
-                    {{ .Content }}
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                  <img class="img-responsive" src="img/{{ .Params.img  }}" alt="">
-                </div>
-                {{ else }}
-                <div>
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">{{ .Title }}</h2>
-                    {{ .Content }}
-                </div>
-                {{ end }}
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    {{ end }}
-    <!-- /.content-section-b -->
-    {{ end }}
-{{ end }}
-
+  </div>
 </section>

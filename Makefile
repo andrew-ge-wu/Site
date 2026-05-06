@@ -1,6 +1,6 @@
 
 # Define variables
-HUGO_VERSION := 0.147.3
+HUGO_VERSION := 0.161.1
 HUGO_BINARY := hugo_extended_$(HUGO_VERSION)_linux-amd64.deb
 
 # Install Hugo (Linux)

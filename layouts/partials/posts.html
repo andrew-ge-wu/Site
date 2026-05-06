@@ -1,208 +1,58 @@
-<section id="posts">
-    <div class="container-wide">
-        {{ range $index, $element := .Site.RegularPages }}{{ if eq .Section "posts" }}
-        <div class="post-section {{ if modBool $index 2 }}post-section-alt{{ end }}">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <article class="post-content">
-                        <h2 class="section-heading">{{ .Title }}</h2>
-                        <div class="post-body content-with-keywords">
-                            {{ .Content }}
-                        </div>
-                    </article>
-                </div>
+<section id="posts" class="posts-section">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-heading">Recent Writing</h2>
+      <hr class="section-heading-spacer center">
+      <p class="section-lead">Notes from the field on Java, JVM tuning, Kafka, and applied ML.</p>
+    </header>
+
+    <div class="posts-grid">
+      {{ $posts := where .Site.RegularPages "Section" "posts" }}
+      {{ range first 6 $posts.ByDate.Reverse }}
+        <article class="post-card-modern">
+          {{ with .Params.img }}
+            {{ $heroPath := printf "img/%s" . }}
+            {{ with resources.Get $heroPath }}
+              {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
+                {{ $thumb := .Resize "640x webp q82" }}
+                <a href="{{ $.RelPermalink }}" class="post-card-img" aria-hidden="true" tabindex="-1">
+                  <img src="{{ $thumb.RelPermalink }}"
+                       width="{{ $thumb.Width }}" height="{{ $thumb.Height }}"
+                       alt="" loading="lazy" decoding="async">
+                </a>
+              {{ end }}
+            {{ else }}
+              <a href="{{ $.RelPermalink }}" class="post-card-img" aria-hidden="true" tabindex="-1">
+                <img src="/img/{{ . }}" alt="" loading="lazy" decoding="async">
+              </a>
+            {{ end }}
+          {{ end }}
+          <div class="post-card-body">
+            <div class="post-card-meta">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+              {{ if .ReadingTime }} &middot; {{ .ReadingTime }} min read{{ end }}
             </div>
-        </div>
-        {{ end }}{{ end }}
+            <h3 class="post-card-title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            {{ with .Description }}
+              <p class="post-card-summary">{{ . }}</p>
+            {{ else }}
+              <p class="post-card-summary">{{ .Summary | plainify | truncate 160 }}</p>
+            {{ end }}
+            {{ with .Params.tags }}
+              <div class="post-card-tags">
+                {{ range first 3 . }}<span class="post-card-tag">{{ . }}</span>{{ end }}
+              </div>
+            {{ end }}
+            <a href="{{ .RelPermalink }}" class="post-card-link">Read article →</a>
+          </div>
+        </article>
+      {{ end }}
     </div>
 
-    <style>
-        .container-wide {
-            width: 100%;
-            max-width: 1400px;
-            margin-right: auto;
-            margin-left: auto;
-            padding: 0 30px;
-        }
-        .post-section {
-            padding: 80px 0;
-            background: #fff;
-        }
-        .post-section-alt {
-            background: #f8f9fa;
-        }
-        .post-content {
-            padding: 30px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .section-heading {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        .post-body {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #333;
-        }
-        .post-body img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-            margin: 20px 0;
-            display: block;
-        }
-        .post-body h1, .post-body h2, .post-body h3 {
-            color: #2c3e50;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        .post-body p {
-            margin-bottom: 1.5rem;
-        }
-        .post-body ul, .post-body ol {
-            padding-left: 20px;
-            margin-bottom: 1.5rem;
-        }
-        .post-body li {
-            margin-bottom: 0.5rem;
-        }
-        .post-body pre, .post-body code {
-            background: #f8f9fa;
-            border-radius: 4px;
-            padding: 15px;
-            margin: 15px 0;
-            overflow-x: auto;
-        }
-        /* Keyword highlighting styles */
-        .keyword {
-            color: #2c3e50;
-            background: rgba(254, 209, 54, 0.2);
-            padding: 2px 4px;
-            border-radius: 3px;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border-bottom: 1px dashed #fed136;
-        }
-        .keyword:hover {
-            background: rgba(254, 209, 54, 0.4);
-            color: #1a252f;
-            text-decoration: none;
-        }
-        @media (max-width: 768px) {
-            .container-wide {
-                padding: 0 15px;
-            }
-            .post-content {
-                padding: 20px;
-            }
-            .post-body {
-                font-size: 1rem;
-            }
-        }
-    </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Define your keywords and their corresponding links
-            const keywords = {
-                'Kafka': '/tags/kafka',
-                'Apache Kafka': '/tags/kafka',
-                'Microservices': '/tags/microservices',
-                'Docker': '/tags/docker',
-                'Kubernetes': '/tags/kubernetes',
-                'K8s': '/tags/kubernetes',
-                'Machine Learning': '/tags/machine-learning',
-                'ML': '/tags/machine-learning',
-                'AI': '/tags/artificial-intelligence',
-                'Cloud': '/tags/cloud',
-                'AWS': '/tags/aws',
-                'Azure': '/tags/azure',
-                'GCP': '/tags/gcp',
-                'Big Data': '/tags/big-data',
-                'DevOps': '/tags/devops',
-                'CI/CD': '/tags/cicd',
-                'API': '/tags/api',
-                'REST': '/tags/rest',
-                'GraphQL': '/tags/graphql',
-                'Database': '/tags/database',
-                'SQL': '/tags/sql',
-                'NoSQL': '/tags/nosql',
-                'MongoDB': '/tags/mongodb',
-                'Redis': '/tags/redis',
-                'Elasticsearch': '/tags/elasticsearch',
-                'Python': '/tags/python',
-                'Java': '/tags/java',
-                'JavaScript': '/tags/javascript',
-                'Node.js': '/tags/nodejs',
-                'React': '/tags/react',
-                'Angular': '/tags/angular',
-                'Vue.js': '/tags/vuejs',
-                'WebSocket': '/tags/websocket',
-                'Security': '/tags/security',
-                'Authentication': '/tags/authentication',
-                'OAuth': '/tags/oauth',
-                'JWT': '/tags/jwt'
-            };
-
-            // Function to escape special characters in string for regex
-            function escapeRegExp(string) {
-                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            }
-
-            // Create regex pattern for all keywords
-            const pattern = new RegExp(
-                '\\b(' + 
-                Object.keys(keywords)
-                    .map(k => escapeRegExp(k))
-                    .sort((a, b) => b.length - a.length) // Sort by length to match longer phrases first
-                    .join('|') + 
-                ')\\b', 
-                'gi'
-            );
-
-            // Function to highlight keywords in text nodes
-            function highlightKeywords(node) {
-                if (node.nodeType === 3) { // Text node
-                    const content = node.textContent;
-                    const matches = content.match(pattern);
-                    
-                    if (matches) {
-                        const fragment = document.createDocumentFragment();
-                        let lastIndex = 0;
-                        
-                        content.replace(pattern, function(match, p1, offset) {
-                            // Add text before match
-                            fragment.appendChild(document.createTextNode(content.slice(lastIndex, offset)));
-                            
-                            // Create link for keyword
-                            const link = document.createElement('a');
-                            link.href = keywords[match] || keywords[match.toLowerCase()];
-                            link.className = 'keyword';
-                            link.textContent = match;
-                            fragment.appendChild(link);
-                            
-                            lastIndex = offset + match.length;
-                            return match;
-                        });
-                        
-                        // Add remaining text
-                        fragment.appendChild(document.createTextNode(content.slice(lastIndex)));
-                        node.parentNode.replaceChild(fragment, node);
-                    }
-                } else if (node.nodeType === 1 && // Element node
-                          !['script', 'style', 'pre', 'code', 'a'].includes(node.nodeName.toLowerCase())) {
-                    Array.from(node.childNodes).forEach(child => highlightKeywords(child));
-                }
-            }
-
-            // Process all post content
-            document.querySelectorAll('.content-with-keywords').forEach(element => {
-                highlightKeywords(element);
-            });
-        });
-    </script>
+    <div class="text-center" style="margin-top: 40px;">
+      <a href="/posts/" class="btn btn-primary">View all posts</a>
+    </div>
+  </div>
 </section>

@@ -1,0 +1,41 @@
+{{/* ------------------------------------------------------------------ */}}
+{{/*  JS pipeline: minify + fingerprint + SRI for project script        */}}
+{{/* ------------------------------------------------------------------ */}}
+{{ $cw := resources.Get "js/circuitwall.js" | js.Build (dict "minify" true "targetPath" "js/circuitwall.js") | fingerprint "sha384" }}
+
+<!-- Modern CircuitWall JavaScript (Vanilla JS - No jQuery) -->
+<script src="{{ $cw.RelPermalink }}" integrity="{{ $cw.Data.Integrity }}" crossorigin="anonymous" defer></script>
+
+<!-- Bootstrap Core JavaScript (Keep for existing functionality) -->
+<script src="/js/bootstrap.min.js" defer></script>
+
+<!-- Service Worker Registration -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('SW registered: ', registration);
+      })
+      .catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+  });
+}
+</script>
+
+{{ if isset .Site.Params "googleAnalytics" }}
+<!-- Google Analytics 4 (Modern) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ .Site.Params.googleAnalytics }}', {
+    page_title: '{{ .Title }}',
+    page_location: '{{ .Permalink }}',
+    anonymize_ip: true,
+    cookie_flags: 'SameSite=None;Secure'
+  });
+</script>
+{{ end }}

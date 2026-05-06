@@ -22,3 +22,6 @@ crashlytics-build.properties
 fabric.properties
 
 public/
+node_modules/
+resources/_gen/
+

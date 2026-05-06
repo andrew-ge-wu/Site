@@ -32,7 +32,7 @@ This website has been significantly optimized for performance, security, and mod
 
 ## 🛠 Technology Stack
 
-- **Static Site Generator**: Hugo v0.147.3
+- **Static Site Generator**: Hugo v0.161.1
 - **Styling**: Bootstrap 4 + Custom CSS
 - **JavaScript**: Vanilla ES6+ (No jQuery dependency)
 - **Deployment**: Netlify with automatic builds
@@ -62,8 +62,8 @@ This website has been significantly optimized for performance, security, and mod
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Hugo Extended v0.147.3+
-- Node.js 18+ (optional, for npm scripts)
+- Hugo Extended v0.161.1+
+- Node.js 20+ (optional, for npm scripts)
 - PowerShell (Windows) or Bash (Linux/Mac)
 
 ### Development

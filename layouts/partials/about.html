@@ -1,17 +1,31 @@
-<!-- About Section -->
-<section id="about" class="container content-section text-center">
+<section id="about" class="about-section">
+  <div class="container">
     {{ range where .Site.RegularPages "Section" "about" | first 1 }}
-    <div class="row">
-        <div class="col-lg-5 col-sm-6">
-            <h2 class="section-heading">{{ .Title }}</h2>
-            <hr class="section-heading-spacer">
-            <div class="clearfix"></div>
-            <br/>
-            {{ .Content }}
+    <div class="row about-row">
+      <div class="col-lg-7 col-md-7">
+        <h2 class="section-heading">{{ .Title }}</h2>
+        <hr class="section-heading-spacer">
+        <div class="about-body content-with-keywords">
+          {{ .Content }}
         </div>
-        <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-            <img class="img-responsive" src="img/{{ .Params.img  }}" alt="">
-        </div>
+      </div>
+      <div class="col-lg-4 col-lg-offset-1 col-md-5 about-portrait-col">
+        {{ with .Params.img }}
+          {{ $heroPath := printf "img/%s" . }}
+          {{ with resources.Get $heroPath }}
+            {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
+              {{ $portrait := .Fill "640x640 webp q85 Center" }}
+              <img class="about-portrait"
+                   src="{{ $portrait.RelPermalink }}"
+                   width="{{ $portrait.Width }}" height="{{ $portrait.Height }}"
+                   alt="Portrait" loading="lazy" decoding="async">
+            {{ end }}
+          {{ else }}
+            <img class="about-portrait" src="/img/{{ . }}" alt="Portrait" loading="lazy" decoding="async">
+          {{ end }}
+        {{ end }}
+      </div>
     </div>
     {{ end }}
+  </div>
 </section>

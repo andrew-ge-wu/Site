@@ -1,144 +1,82 @@
 {{ partial "head.html" . }}
 {{ partial "header.html" . }}
 
-<section class="posts-list bg-light">
-    <div class="container-wide">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Blog Posts</h2>
-                <hr class="primary">
-            </div>
-        </div>
+<section class="archive-section">
+  <div class="container">
+    <header class="archive-header">
+      <h1 class="archive-title">{{ if .Title }}{{ .Title }}{{ else }}Posts{{ end }}</h1>
+      <hr class="section-heading-spacer center">
+      {{ with .Description }}<p class="archive-lead">{{ . }}</p>{{ end }}
+    </header>
 
-        <div class="row">
-            {{ range .Pages }}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <article class="post-card">
-                    {{ with .Params.img }}
-                    <div class="post-img-container">
-                        <img class="post-img" src="/img/{{ . }}" alt="{{ $.Title }}">
-                    </div>
-                    {{ end }}
-                    <div class="post-content">
-                        <h3 class="post-title">{{ .Title }}</h3>
-                        <div class="post-meta">
-                            <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
-                        </div>
-                        <div class="post-summary content-with-keywords">
-                            {{ .Summary }}
-                        </div>
-                        <a href="{{ .RelPermalink }}" class="read-more">Read More →</a>
-                    </div>
-                </article>
-            </div>
-            {{ end }}
+    {{ $pages := .Pages.ByDate.Reverse }}
+    {{ if not $pages }}
+      {{ $pages = (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+    {{ end }}
+
+    {{/* Tag filter chips (only on /posts/) */}}
+    {{ if eq .Section "posts" }}
+      {{ $tags := slice }}
+      {{ range $pages }}{{ range .Params.tags }}{{ $tags = $tags | append (string .) }}{{ end }}{{ end }}
+      {{ $tags = $tags | uniq }}
+      {{ if $tags }}
+        <div class="archive-filters" data-archive-filters>
+          <button type="button" class="archive-chip is-active" data-filter="*">All</button>
+          {{ range $tags }}
+            <button type="button" class="archive-chip" data-filter="{{ . | urlize }}">{{ . }}</button>
+          {{ end }}
         </div>
+      {{ end }}
+    {{ end }}
+
+    <div class="posts-grid" data-archive-grid>
+      {{ range $pages }}
+        {{ $tagSlugs := slice }}
+        {{ range .Params.tags }}{{ $tagSlugs = $tagSlugs | append (. | urlize) }}{{ end }}
+        <article class="post-card-modern" data-tags="{{ delimit $tagSlugs " " }}">
+          {{ with .Params.img }}
+            {{ $heroPath := printf "img/%s" . }}
+            {{ with resources.Get $heroPath }}
+              {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
+                {{ $thumb := .Resize "640x webp q82" }}
+                <a href="{{ $.RelPermalink }}" class="post-card-img" aria-hidden="true" tabindex="-1">
+                  <img src="{{ $thumb.RelPermalink }}"
+                       width="{{ $thumb.Width }}" height="{{ $thumb.Height }}"
+                       alt="" loading="lazy" decoding="async">
+                </a>
+              {{ end }}
+            {{ else }}
+              <a href="{{ $.RelPermalink }}" class="post-card-img" aria-hidden="true" tabindex="-1">
+                <img src="/img/{{ . }}" alt="" loading="lazy" decoding="async">
+              </a>
+            {{ end }}
+          {{ end }}
+          <div class="post-card-body">
+            <div class="post-card-meta">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+              {{ if .ReadingTime }} &middot; {{ .ReadingTime }} min read{{ end }}
+            </div>
+            <h2 class="post-card-title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h2>
+            {{ with .Description }}
+              <p class="post-card-summary">{{ . }}</p>
+            {{ else }}
+              <p class="post-card-summary">{{ .Summary | plainify | truncate 180 }}</p>
+            {{ end }}
+            {{ with .Params.tags }}
+              <div class="post-card-tags">
+                {{ range first 4 . }}<span class="post-card-tag">{{ . }}</span>{{ end }}
+              </div>
+            {{ end }}
+            <a href="{{ .RelPermalink }}" class="post-card-link">Read article →</a>
+          </div>
+        </article>
+      {{ end }}
     </div>
 
-    <style>
-        .container-wide {
-            width: 100%;
-            max-width: 1400px;
-            margin-right: auto;
-            margin-left: auto;
-            padding: 0 30px;
-        }
-        .posts-list {
-            padding: 100px 0;
-        }
-        .section-heading {
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-        hr.primary {
-            width: 50px;
-            height: 3px;
-            background-color: #fed136;
-            border: none;
-            margin: 20px auto 50px;
-        }
-        .post-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            transition: transform 0.3s ease-in-out;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .post-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        .post-img-container {
-            height: 250px;
-            overflow: hidden;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            position: relative;
-        }
-        .post-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            transition: transform 0.3s ease;
-        }
-        .post-img-container:hover .post-img {
-            transform: scale(1.05);
-        }
-        .post-content {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .post-title {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .post-meta {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        .post-summary {
-            color: #333;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        .read-more {
-            color: #fed136;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-            align-self: flex-start;
-        }
-        .read-more:hover {
-            color: #e6bc2f;
-            text-decoration: none;
-        }
-        @media (max-width: 768px) {
-            .container-wide {
-                padding: 0 15px;
-            }
-            .post-card {
-                margin-bottom: 20px;
-            }
-            .post-img-container {
-                height: 200px;
-            }
-            .post-content {
-                padding: 20px;
-            }
-            .post-title {
-                font-size: 1.3rem;
-            }
-        }
-    </style>
+    <p class="archive-empty" data-archive-empty hidden>No posts match the selected filter.</p>
+  </div>
 </section>
 
 {{ partial "footer.html" . }}

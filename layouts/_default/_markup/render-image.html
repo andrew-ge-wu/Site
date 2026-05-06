@@ -1,0 +1,30 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $alt := .PlainText -}}
+{{- $title := .Title -}}
+{{- /* Try to process local images via Hugo Pipes when available */ -}}
+{{- $processed := false -}}
+{{- if and (not $u.Scheme) (hasPrefix .Destination "/img/") -}}
+  {{- $assetPath := strings.TrimPrefix "/" .Destination -}}
+  {{- with resources.Get $assetPath -}}
+    {{- if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type -}}
+      {{- $img := . -}}
+      {{- $small := $img.Resize "640x webp q82" -}}
+      {{- $medium := $img.Resize "1024x webp q82" -}}
+      {{- $large := $img.Resize "1600x webp q80" -}}
+      <img
+        src="{{ $medium.RelPermalink }}"
+        srcset="{{ $small.RelPermalink }} 640w, {{ $medium.RelPermalink }} 1024w, {{ $large.RelPermalink }} 1600w"
+        sizes="(max-width: 768px) 100vw, 1024px"
+        alt="{{ $alt }}"
+        {{ with $title }}title="{{ . }}"{{ end }}
+        width="{{ $medium.Width }}"
+        height="{{ $medium.Height }}"
+        loading="lazy"
+        decoding="async">
+      {{- $processed = true -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $processed -}}
+<img src="{{ .Destination | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- end -}}

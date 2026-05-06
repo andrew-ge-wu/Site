@@ -47,6 +47,10 @@
 			    <h1>{{ .Site.Title }}</h1>
 			    <h3>{{ .Site.Params.description }}</h3>
 			    <hr class="intro-divider">
+			    <div class="intro-cta">
+			      <a href="#services" class="btn btn-primary page-scroll">Explore services</a>
+			      <a href="#posts" class="btn btn-ghost page-scroll">Read articles</a>
+			    </div>
 			    {{ if isset .Site.Params "social" }}
 			    <ul class="list-inline intro-social-buttons">
 				        {{ partial "social.html" . }}
