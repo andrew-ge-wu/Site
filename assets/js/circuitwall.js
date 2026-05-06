@@ -24,14 +24,15 @@ class CircuitWallSite {
   setupSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#' || href.length < 2) return;
+        const target = document.querySelector(href);
+        if (!target) return; // let the browser navigate (or do nothing) — don't swallow the click
         e.preventDefault();
-        const target = document.querySelector(anchor.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
+        const navOffset = 70;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        window.scrollTo({ top, behavior: 'smooth' });
+        history.pushState(null, '', href);
       });
     });
   }

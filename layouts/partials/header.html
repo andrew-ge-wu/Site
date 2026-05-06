@@ -9,23 +9,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="page-scroll navbar-brand" href="#intro">{{ .Site.Title }}</a>
+            {{ $home := .Site.BaseURL | relURL }}
+            {{ $prefix := cond .IsHome "" $home }}
+            <a class="page-scroll navbar-brand" href="{{ $prefix }}#intro">{{ .Site.Title }}</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="page-scroll" href="#about">About</a>
+                    <a class="page-scroll" href="{{ $prefix }}#about">About</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#services">Services</a>
+                    <a class="page-scroll" href="{{ $prefix }}#services">Services</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#posts">Posts</a>
+                    <a {{ if .IsHome }}class="page-scroll"{{ end }} href="{{ if .IsHome }}#posts{{ else }}{{ "/posts/" | relURL }}{{ end }}">Posts</a>
                 </li>
                 {{ if isset .Site.Params "social" }}
                 <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
+                    <a class="page-scroll" href="{{ $prefix }}#contact">Contact</a>
                 </li>
                 {{ end }}
             </ul>
