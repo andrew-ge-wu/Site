@@ -34,7 +34,8 @@
     {{/*  CSS pipeline: bundle project CSS + minify + fingerprint + SRI    */}}
     {{/* ------------------------------------------------------------------ */}}
     {{ $perf := resources.Get "css/performance.css" }}
-    {{ $bundle := slice $perf | resources.Concat "css/site.css" | minify | fingerprint "sha384" }}
+    {{ $chroma := resources.Get "css/chroma.css" }}
+    {{ $bundle := slice $perf $chroma | resources.Concat "css/site.css" | minify | fingerprint "sha384" }}
 
     <!-- Preload critical resources -->
     <link rel="preload" href="/css/bootstrap.min.css" as="style">

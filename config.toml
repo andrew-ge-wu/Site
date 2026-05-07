@@ -61,10 +61,11 @@ enableEmoji = true
     endLevel = 4
     ordered = false
   [markup.highlight]
-    style = "github"
+    style = "github-dark"
+    noClasses = false
     lineNos = false
     codeFences = true
-    guessSyntax = true
+    guessSyntax = false
     tabWidth = 4
 
 [related]
