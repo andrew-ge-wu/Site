@@ -1,32 +1,23 @@
 ---
-Title: Enterprise Application Development
+Title: Application Development
 Img: services/application-development.svg
 Category: Services
 Draft: false
+weight: 3
 ---
 
-Leverage 15+ years of enterprise software development expertise to build robust, scalable applications that drive business value. Specializing in modern architecture patterns and cloud-native development.
+15+ years building enterprise systems on the JVM and beyond. Modern, well-tested, easy to operate.
 
-* **Enterprise Solutions**
-  * Microservices architecture
-  * Cloud-native development
-  * Legacy system modernization
-  * API design and integration
+* **What I do**
+  * Microservices and event-driven systems on the JVM
+  * Legacy modernization and incremental rewrites
+  * API design (REST, GraphQL, gRPC) and integration
 
-* **Technology Stack**
-  * **Backend**: Java/Spring (10+ years), Python (5+ years), Golang (2+ years)
-  * **Frontend & API**: Modern JavaScript, REST/GraphQL
-  * **Database**: MySQL, PostgreSQL, MongoDB, Redis
-  * **MLOps**: Vertex AI, ML pipelines, Model monitoring
+* **Stack**
+  * Java / Spring (10+ yrs), Kotlin, Python, Go
+  * PostgreSQL, MongoDB, Redis, Kafka
+  * CI/CD, IaC, security-first by default
 
-* **Development Practices**
-  * Agile/CI/CD
-  * Test-driven development
-  * Infrastructure as Code
-  * Security-first design
-
-*Benefits*
-* Faster time-to-market
-* Improved performance
-* Scalable architecture
-* Lower maintenance costs
+* **What you get**
+  * Software that ships predictably and runs without 2 a.m. pages
+  * Engineers who learn the codebase, not just the ticket queue

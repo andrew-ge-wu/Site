@@ -1,27 +1,23 @@
 ---
-Title: Cloud Technology
+Title: Cloud & Platform
 Img: services/going-cloud.svg
 Category: Services
 Draft: false
+weight: 4
 ---
 
-Transform your business with enterprise-grade cloud solutions that drive innovation, reduce costs, and accelerate time to market. With extensive experience in major cloud platforms, I help organizations optimize their cloud infrastructure for maximum efficiency and scalability.
+Cloud-native infrastructure that supports the workloads above - including GPU and ML serving - without surprise bills.
 
-* **Cloud Migration & Modernization**
-  * Assessment and migration planning
-  * Cloud-native transformation
-  * Infrastructure as Code (IaC)
-  * Cost optimization
+* **What I do**
+  * Migration and modernization (lift, refactor, or rebuild)
+  * Kubernetes platforms, GPU scheduling, multi-tenant isolation
+  * Cost and reliability optimization, observability, security baseline
 
-* **Multi-Cloud Solutions**
-  * **Google Cloud Platform**: BigQuery, Cloud Storage, Vertex AI, Cloud Functions, Cloud Run
-  * **Amazon Web Services**: EC2, VPC, S3, Athena, Lambda
-  * **Platform Engineering**: Cloudfoundry, Kubernetes, CI/CD, Security & Compliance
+* **Clouds**
+  * **GCP**: Vertex AI, BigQuery, GKE, Cloud Run, Cloud Functions
+  * **AWS**: EKS, S3, Lambda, Athena, VPC
+  * Cloud Foundry, Kubernetes, GitHub Actions
 
-*Benefits*
-* Reduced operational costs
-* Enhanced scalability and reliability
-* Improved security and compliance
-* Faster time to market
-* Data-driven decision making
-
+* **What you get**
+  * Predictable cost, predictable latency
+  * A platform your team can extend, not just consume

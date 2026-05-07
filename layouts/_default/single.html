@@ -78,12 +78,14 @@
       {{ if not $hasHero }}
       <header class="post-header">
         <h1 class="post-title">{{ .Title }}</h1>
+        {{ if eq .Section "posts" }}
         <div class="post-meta">
           {{ with .Date }}<time datetime="{{ .Format "2006-01-02" }}">{{ .Format "January 2, 2006" }}</time>{{ end }}
           {{ if and .Lastmod (gt .Lastmod .Date) }} &middot; <span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>{{ end }}
           {{ with .Params.author }} &middot; <span>{{ . }}</span>{{ end }}
-          {{ if .ReadingTime }} &middot; <span>{{ .ReadingTime }} min read</span>{{ end }}
+          {{ with .ReadingTime }} &middot; <span>{{ . }} min read</span>{{ end }}
         </div>
+        {{ end }}
       </header>
       {{ end }}
 

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Engineering Management">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f2933"/>
+      <stop offset="1" stop-color="#0f1620"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fed136" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#fed136" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    </pattern>
+    <radialGradient id="lead" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#fed136"/>
+      <stop offset="1" stop-color="#e6bc2f"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <rect width="1280" height="420" fill="url(#glow)"/>
+
+  <!-- Connection lines (drawn first, behind nodes) -->
+  <g stroke="#fed136" stroke-opacity=".35" stroke-width="2" fill="none" stroke-linecap="round">
+    <!-- Lead to managers -->
+    <path d="M640 230 V 320 H 320 V 380"/>
+    <path d="M640 230 V 320 H 640 V 380"/>
+    <path d="M640 230 V 320 H 960 V 380"/>
+  </g>
+  <g stroke="#fed136" stroke-opacity=".18" stroke-width="1.5" fill="none" stroke-linecap="round">
+    <!-- manager 1 to ICs -->
+    <path d="M320 440 V 500 H 200 V 540"/>
+    <path d="M320 440 V 500 H 320 V 540"/>
+    <path d="M320 440 V 500 H 440 V 540"/>
+    <!-- manager 2 to ICs -->
+    <path d="M640 440 V 500 H 540 V 540"/>
+    <path d="M640 440 V 500 H 640 V 540"/>
+    <path d="M640 440 V 500 H 740 V 540"/>
+    <!-- manager 3 to ICs -->
+    <path d="M960 440 V 500 H 860 V 540"/>
+    <path d="M960 440 V 500 H 960 V 540"/>
+    <path d="M960 440 V 500 H 1080 V 540"/>
+  </g>
+
+  <!-- Lead node (top) -->
+  <g transform="translate(580 170)">
+    <rect width="120" height="60" rx="30" fill="url(#lead)"/>
+    <circle cx="36" cy="30" r="11" fill="#1f2933"/>
+    <path d="M22 50 a14 14 0 0 1 28 0" fill="#1f2933"/>
+    <text x="68" y="28" fill="#1f2933" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13" font-weight="700">LEAD</text>
+    <text x="68" y="44" fill="#1f2933" font-family="ui-sans-serif,system-ui,sans-serif" font-size="10" letter-spacing="1">SR. EM</text>
+  </g>
+
+  <!-- Manager nodes (middle) -->
+  <g font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" letter-spacing=".5" fill="#9bb1c2">
+    <g transform="translate(260 380)">
+      <rect width="120" height="60" rx="10" fill="#0f1620" stroke="#fed136" stroke-opacity=".5" stroke-width="2"/>
+      <circle cx="32" cy="30" r="9" fill="#fed136"/>
+      <path d="M20 48 a12 12 0 0 1 24 0" fill="#fed136"/>
+      <text x="56" y="28" fill="#fed136" font-weight="700" font-size="12">EM</text>
+      <text x="56" y="44">team · platform</text>
+    </g>
+    <g transform="translate(580 380)">
+      <rect width="120" height="60" rx="10" fill="#0f1620" stroke="#fed136" stroke-opacity=".5" stroke-width="2"/>
+      <circle cx="32" cy="30" r="9" fill="#fed136"/>
+      <path d="M20 48 a12 12 0 0 1 24 0" fill="#fed136"/>
+      <text x="56" y="28" fill="#fed136" font-weight="700" font-size="12">EM</text>
+      <text x="56" y="44">team · ML</text>
+    </g>
+    <g transform="translate(900 380)">
+      <rect width="120" height="60" rx="10" fill="#0f1620" stroke="#fed136" stroke-opacity=".5" stroke-width="2"/>
+      <circle cx="32" cy="30" r="9" fill="#fed136"/>
+      <path d="M20 48 a12 12 0 0 1 24 0" fill="#fed136"/>
+      <text x="56" y="28" fill="#fed136" font-weight="700" font-size="12">EM</text>
+      <text x="56" y="44">team · product</text>
+    </g>
+  </g>
+
+  <!-- IC nodes (bottom row, 9 total) -->
+  <g>
+    <g fill="#52606d">
+      <!-- under EM 1 -->
+      <circle cx="200" cy="566" r="16"/>
+      <circle cx="320" cy="566" r="16"/>
+      <circle cx="440" cy="566" r="16"/>
+      <!-- under EM 2 -->
+      <circle cx="540" cy="566" r="16"/>
+      <circle cx="640" cy="566" r="16"/>
+      <circle cx="740" cy="566" r="16"/>
+      <!-- under EM 3 -->
+      <circle cx="860" cy="566" r="16"/>
+      <circle cx="960" cy="566" r="16"/>
+      <circle cx="1080" cy="566" r="16"/>
+    </g>
+    <!-- Little person glyphs -->
+    <g fill="#9bb1c2">
+      <g transform="translate(0 0)">
+        <circle cx="200" cy="562" r="5"/>
+        <path d="M193 576 a7 7 0 0 1 14 0" />
+        <circle cx="320" cy="562" r="5"/>
+        <path d="M313 576 a7 7 0 0 1 14 0" />
+        <circle cx="440" cy="562" r="5"/>
+        <path d="M433 576 a7 7 0 0 1 14 0" />
+        <circle cx="540" cy="562" r="5"/>
+        <path d="M533 576 a7 7 0 0 1 14 0" />
+        <circle cx="640" cy="562" r="5"/>
+        <path d="M633 576 a7 7 0 0 1 14 0" />
+        <circle cx="740" cy="562" r="5"/>
+        <path d="M733 576 a7 7 0 0 1 14 0" />
+        <circle cx="860" cy="562" r="5"/>
+        <path d="M853 576 a7 7 0 0 1 14 0" />
+        <circle cx="960" cy="562" r="5"/>
+        <path d="M953 576 a7 7 0 0 1 14 0" />
+        <circle cx="1080" cy="562" r="5"/>
+        <path d="M1073 576 a7 7 0 0 1 14 0" />
+      </g>
+    </g>
+  </g>
+
+  <!-- Counter chip top-right -->
+  <g transform="translate(1020 90)">
+    <rect width="180" height="56" rx="28" fill="#0f1620" stroke="#fed136" stroke-width="2"/>
+    <text x="22" y="36" fill="#fed136" font-family="ui-sans-serif,system-ui,sans-serif" font-size="22" font-weight="700">40+</text>
+    <text x="74" y="26" fill="#9bb1c2" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" letter-spacing="1.5">DIRECT &amp;</text>
+    <text x="74" y="42" fill="#9bb1c2" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" letter-spacing="1.5">INDIRECT REPORTS</text>
+  </g>
+
+  <!-- Bottom labels -->
+  <g fill="#52606d" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13" letter-spacing="2" text-anchor="middle">
+    <text x="320" y="640">PLATFORM</text>
+    <text x="640" y="640">ML / DATA</text>
+    <text x="960" y="640">PRODUCT</text>
+  </g>
+</svg>

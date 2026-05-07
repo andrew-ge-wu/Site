@@ -1,35 +1,25 @@
 ---
-Title: Big Data & Machine Learning
+Title: AI & Machine Learning
 Img: services/big-data-ml.svg
 Category: Services
 Draft: false
+weight: 1
 ---
 
-Transform your data into actionable insights with cutting-edge Big Data and Machine Learning solutions. From data pipeline architecture to production-ready ML models, I help organizations harness their data for competitive advantage.
+I bring AI systems to production - from prototype to a model people actually rely on. Last 3 years: building, training, and shipping models in fintech and consumer products.
 
-* **Data Engineering**
-  * Scalable data pipelines
-  * Real-time processing
-  * Data warehouse architecture
-  * ETL optimization
+* **What I do**
+  * Production ML pipelines (training, eval, deploy, monitor)
+  * LLM and agent systems: RAG, tool use, evals, guardrails
+  * Computer vision and on-device / in-browser inference
+  * Real-time scoring: fraud, risk, recommendations
 
-* **Machine Learning**
-  * Custom model development
-  * Real-time recommendations
-  * Fraud detection
-  * NLP & Computer Vision
-  * Time series forecasting
+* **Stack**
+  * PyTorch, Transformers, Vertex AI, MLflow
+  * Kafka, Spark, BigQuery
+  * Kubernetes, Docker, GitHub Actions
 
-* **Technology Stack**
-  * **Processing**: Apache Storm, Flink, Spark
-  * **Data Platform**: Kafka, Cassandra, HDFS
-  * **Analytics**: Athena, BigQuery
-  * **ML/AI**: TensorFlow, PyTorch, Vertex AI
-  * **MLOps**: Kubeflow, MLflow, DVC
-
-*Benefits*
-* Data-driven decisions
-* Automated processes
-* Predictive capabilities
-* Real-time insights
-* Scalable solutions
+* **What you get**
+  * A model in production, not a notebook
+  * Evals you trust and dashboards you read
+  * A team that can keep iterating after I leave

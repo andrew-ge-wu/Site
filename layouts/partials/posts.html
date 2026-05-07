@@ -30,7 +30,7 @@
           <div class="post-card-body">
             <div class="post-card-meta">
               <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-              {{ if .ReadingTime }} &middot; {{ .ReadingTime }} min read{{ end }}
+              {{ with .ReadingTime }} &middot; {{ . }} min read{{ end }}
             </div>
             <h3 class="post-card-title">
               <a href="{{ .RelPermalink }}">{{ .Title }}</a>
@@ -38,7 +38,9 @@
             {{ with .Description }}
               <p class="post-card-summary">{{ . }}</p>
             {{ else }}
-              <p class="post-card-summary">{{ .Summary | plainify | truncate 160 }}</p>
+              {{ with .Summary }}
+                <p class="post-card-summary">{{ . | plainify | truncate 160 }}</p>
+              {{ end }}
             {{ end }}
             {{ with .Params.tags }}
               <div class="post-card-tags">
