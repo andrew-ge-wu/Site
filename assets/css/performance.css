@@ -78,8 +78,10 @@ a:hover, a:focus { text-decoration: none; }
 .intro-header {
   padding: clamp(40px, 8vw, 100px) 0 !important;
   position: relative;
+  background-image: url("/img/intro-bg-2026.jpg") !important;
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
 }
 .intro-header::after {
   content: "";
@@ -1271,7 +1273,7 @@ footer .list-inline > li { display: inline-block; }
   .post-article .post-body a[href^="javascript:"]::after { content: ""; }
 }
 /* =====================================================================
-   Footer photo treatment — Stockholm skyline
+   Footer photo treatment ï¿½ Stockholm skyline
    ===================================================================== */
 footer {
   position: relative;
