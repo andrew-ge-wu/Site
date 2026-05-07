@@ -32,7 +32,12 @@ LeDesigner is built around a four-stage pipeline that runs locally in Web Worker
 3. **Build** — Depth Anything estimates a depth map, the voxelizer turns that into a 3D grid, and a greedy optimizer merges 1×1 voxels into standard LEGO bricks.
 4. **View** — the model renders in Three.js (via `react-three-fiber`) using `InstancedMesh` so even thousand-brick builds stay smooth. A parts table shows brick counts and exports to CSV.
 
-![Pipeline overview](/img/articles/le-design/pipeline.png)
+```
+Image ──▶ SAM segmentation ──▶ Depth Anything ──▶ Voxelizer
+                                                    │
+                                                    ▼
+              CSV export ◀── Parts table ◀── 3D LEGO viewer ◀── Greedy brick optimizer
+```
 
 ## Why It's Interesting
 

@@ -33,6 +33,12 @@
   --fs-h2:   clamp(1.65rem, 1.30rem + 1.80vw, 2.50rem);
   --fs-h1:   clamp(2.00rem, 1.50rem + 3.00vw, 3.75rem);
   --fs-hero: clamp(2.25rem, 1.50rem + 4.50vw, 5.00rem);
+
+  /* Navigation height — used for scroll-margin so anchors don't hide under fixed bar */
+  --cw-nav-h: 56px;
+}
+@media (min-width: 768px) {
+  :root { --cw-nav-h: 70px; }
 }
 
 /* ---------- Reset & sensible defaults ---------- */
@@ -121,12 +127,20 @@ a:hover, a:focus { text-decoration: none; }
   transform: translateY(-2px) !important;
 }
 .intro-social-buttons a .fa { font-size: 18px; line-height: 1; }
-.intro-social-buttons a .network-name {
+/* Visually hide the network label text — defense in depth against legacy CSS */
+.intro-social-buttons a .network-name,
+.intro-social-buttons .network-name {
   position: absolute !important;
   width: 1px !important; height: 1px !important;
   padding: 0 !important; margin: -1px !important;
-  overflow: hidden !important; clip: rect(0,0,0,0) !important;
-  white-space: nowrap !important; border: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+  text-indent: -9999px !important;
 }
 
 /* ---------- Navbar polish ---------- */
@@ -208,8 +222,10 @@ a:hover, a:focus { text-decoration: none; }
   margin: 0 auto 2.5rem;
   text-align: center;
 }
-#about, #services { scroll-margin-top: 80px; }
-#posts, #contact { scroll-margin-top: 80px; }
+#about, #services,
+#posts, #contact {
+  scroll-margin-top: calc(var(--cw-nav-h) + 16px);
+}
 
 /* ---------- About section ---------- */
 .about-section {
@@ -1096,4 +1112,158 @@ footer .list-inline > li { display: inline-block; }
   a { color: #000; text-decoration: underline; }
   h1, h2, h3 { page-break-after: avoid; }
   img { max-width: 100% !important; }
+}
+
+/* =====================================================================
+   Polish v2 -- narrow viewports, touch targets, contrast, print
+   ===================================================================== */
+
+/* (#4) Hero CTA on very narrow screens -- stack but keep usable width */
+@media (max-width: 380px) {
+  .intro-cta { flex-direction: column; align-items: stretch; gap: 10px; }
+  .intro-cta .btn,
+  .intro-cta .btn-ghost { width: 100%; min-width: 0; padding: 14px 20px !important; }
+}
+
+/* (#5) Post hero shrinks on landscape phones */
+@media (orientation: landscape) and (max-height: 500px) {
+  .post-hero-section { min-height: 240px; margin-top: 50px; }
+  .post-hero-inner { padding: 32px 16px; }
+  .intro-message { padding: 60px 0 !important; }
+}
+
+/* (#6) Article images: bleed slightly on small screens, drop heavy shadow */
+@media (max-width: 480px) {
+  .post-article .post-body img {
+    margin-left: -10px;
+    margin-right: -10px;
+    max-width: calc(100% + 20px);
+    width: calc(100% + 20px);
+    border-radius: 6px;
+    box-shadow: none;
+  }
+}
+
+/* (#7) Code copy button: easier to reach on touch, hidden when no hover */
+@media (max-width: 600px) {
+  .code-copy-btn {
+    opacity: 1;
+    top: 6px; right: 6px;
+    padding: 6px 12px;
+    font-size: .8rem;
+  }
+}
+@media (hover: none) {
+  .post-article .post-body pre .code-copy-btn { opacity: 1; }
+}
+
+/* (#8) Tap-target audit -- enforce 44px on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .post-card-tag,
+  .post-tag,
+  .archive-chip,
+  .post-hero-tag {
+    min-height: 36px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .post-share-btn,
+  .back-to-top { min-width: 44px; min-height: 44px; }
+  .navbar-default .navbar-nav > li > a { min-height: 44px; display: flex; align-items: center; }
+  .post-card-link { padding: 8px 0; }
+}
+
+/* (#9) Dark-mode card-tag contrast (the in-card pills, not just .post-tag) */
+@media (prefers-color-scheme: dark) {
+  .post-card-tag {
+    background: rgba(254, 209, 54, .15) !important;
+    color: #fed136 !important;
+  }
+  .post-hero-tag {
+    background: rgba(255,255,255,.10);
+    border-color: rgba(255,255,255,.18);
+  }
+}
+
+/* (#11) Mobile navbar collapsed menu -- ensure solid background in dark mode */
+@media (max-width: 767px) {
+  .navbar-collapse {
+    background: rgba(255,255,255,.96);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-top: 1px solid var(--cw-border);
+    box-shadow: var(--cw-shadow-sm);
+  }
+}
+@media (prefers-color-scheme: dark) and (max-width: 767px) {
+  .navbar-collapse { background: rgba(18,20,23,.96); border-top-color: var(--cw-border); }
+}
+
+/* (#13) Tables -- wrap long text, only force horizontal scroll when truly needed */
+.post-body table {
+  white-space: normal;
+}
+.post-body table th,
+.post-body table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--cw-border);
+  vertical-align: top;
+}
+.post-body table th { text-align: left; font-weight: 700; }
+
+/* (#14) Higher-contrast preference */
+@media (prefers-contrast: more) {
+  :root {
+    --cw-ink: #000;
+    --cw-ink-soft: #1f2933;
+    --cw-border: #1f2933;
+  }
+  .post-card-modern,
+  .service-card-modern,
+  .archive-chip,
+  .post-pager-link { border-width: 2px !important; }
+  a { text-decoration: underline; }
+}
+
+/* (#10) Back-to-top: avoid edge gestures on iOS */
+.back-to-top { overscroll-behavior: contain; }
+
+/* (#12) Hero LCP tweak -- keep intro-header from causing CLS */
+.intro-header { contain: layout paint; }
+
+/* (#15) Print refinements */
+@media print {
+  .navbar-fixed-top,
+  .intro-social-buttons,
+  .intro-cta,
+  .post-share,
+  .post-toc,
+  .reading-progress,
+  .back-to-top,
+  .code-copy-btn,
+  .archive-filters,
+  .post-pager,
+  .post-related,
+  .post-hero-back { display: none !important; }
+  .post-hero-section { min-height: 0 !important; color: #000 !important; }
+  .post-hero-overlay,
+  .post-hero-image { display: none !important; }
+  .post-hero-title,
+  .post-hero-desc,
+  .post-hero-meta { color: #000 !important; text-shadow: none !important; }
+  .single-post,
+  .post-section,
+  .archive-section { padding: 0 !important; }
+  .post-article .post-body img { box-shadow: none !important; page-break-inside: avoid; }
+  .post-article .post-body pre {
+    background: #f4f4f4 !important;
+    color: #000 !important;
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+  .post-article .post-body a::after { content: " (" attr(href) ")"; font-size: 90%; color: #555; }
+  .post-article .post-body a[href^="#"]::after,
+  .post-article .post-body a[href^="javascript:"]::after { content: ""; }
 }
