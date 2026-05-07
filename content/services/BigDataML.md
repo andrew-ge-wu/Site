@@ -1,6 +1,6 @@
 ---
 Title: Big Data & Machine Learning
-Img: services/big-data.jpg
+Img: services/big-data-ml.svg
 Category: Services
 Draft: false
 ---

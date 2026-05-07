@@ -11,19 +11,26 @@
         <article class="service-card-modern">
           {{ with .Params.img }}
             {{ $heroPath := printf "img/%s" . }}
-            {{ with resources.Get $heroPath }}
-              {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
-                {{ $thumb := .Resize "800x webp q82" }}
-                <div class="service-card-img">
-                  <img src="{{ $thumb.RelPermalink }}"
-                       width="{{ $thumb.Width }}" height="{{ $thumb.Height }}"
-                       alt="{{ $.Title }}" loading="lazy" decoding="async">
-                </div>
-              {{ end }}
-            {{ else }}
+            {{ $isSvg := hasSuffix . ".svg" }}
+            {{ if $isSvg }}
               <div class="service-card-img">
                 <img src="/img/{{ . }}" alt="{{ $.Title }}" loading="lazy" decoding="async">
               </div>
+            {{ else }}
+              {{ with resources.Get $heroPath }}
+                {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
+                  {{ $thumb := .Resize "800x webp q82" }}
+                  <div class="service-card-img">
+                    <img src="{{ $thumb.RelPermalink }}"
+                         width="{{ $thumb.Width }}" height="{{ $thumb.Height }}"
+                         alt="{{ $.Title }}" loading="lazy" decoding="async">
+                  </div>
+                {{ end }}
+              {{ else }}
+                <div class="service-card-img">
+                  <img src="/img/{{ . }}" alt="{{ $.Title }}" loading="lazy" decoding="async">
+                </div>
+              {{ end }}
             {{ end }}
           {{ end }}
           <div class="service-card-body">

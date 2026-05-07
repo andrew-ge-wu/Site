@@ -1,6 +1,6 @@
 ---
 Title: Enterprise Application Development
-Img: services/duke.jpg
+Img: services/application-development.svg
 Category: Services
 Draft: false
 ---

@@ -1,6 +1,6 @@
 ---
 Title: Cloud Technology
-Img: services/public-cloud.png
+Img: services/going-cloud.svg
 Category: Services
 Draft: false
 ---
