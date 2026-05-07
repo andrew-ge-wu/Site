@@ -78,12 +78,15 @@ a:hover, a:focus { text-decoration: none; }
 .intro-header {
   padding: clamp(40px, 8vw, 100px) 0 !important;
   position: relative;
+  background-position: center;
+  background-size: cover;
 }
 .intro-header::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15,23,42,.25) 0%, rgba(15,23,42,.55) 100%);
+  background:
+    linear-gradient(180deg, rgba(15,23,42,.55) 0%, rgba(15,23,42,.85) 100%);
   pointer-events: none;
 }
 .intro-header > .container { position: relative; z-index: 1; }
@@ -1266,4 +1269,52 @@ footer .list-inline > li { display: inline-block; }
   .post-article .post-body a::after { content: " (" attr(href) ")"; font-size: 90%; color: #555; }
   .post-article .post-body a[href^="#"]::after,
   .post-article .post-body a[href^="javascript:"]::after { content: ""; }
+}
+/* =====================================================================
+   Footer photo treatment — Stockholm skyline
+   ===================================================================== */
+footer {
+  position: relative;
+  background: #0c1219;
+  color: #c9cfd6;
+  padding: 80px 0 32px !important;
+  margin-top: 60px;
+  overflow: hidden;
+  isolation: isolate;
+}
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/img/footer-bg.jpg");
+  background-size: cover;
+  background-position: center 60%;
+  filter: saturate(.85) brightness(.55);
+  z-index: -2;
+}
+footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(12,18,25,.85) 0%, rgba(12,18,25,.95) 75%, #0c1219 100%);
+  z-index: -1;
+}
+footer .container { position: relative; z-index: 1; }
+footer a { color: #fed136; }
+footer a:hover { color: #ffe273; }
+footer .list-inline { margin-bottom: 14px; }
+footer .list-inline > li { padding: 4px 6px; }
+footer .footer-menu-divider { color: rgba(255,255,255,.25); padding: 0 2px !important; }
+footer .copyright,
+footer .text-muted { color: rgba(255,255,255,.55) !important; font-size: .85rem; }
+footer .col-md-4 { color: rgba(255,255,255,.6); font-size: .85rem; }
+@media (max-width: 767px) {
+  footer { padding: 60px 0 24px !important; text-align: center; }
+  footer .col-md-4 { margin-top: 16px; }
+}
+@media (prefers-color-scheme: dark) {
+  footer::after {
+    background: linear-gradient(180deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.95) 75%, #000 100%);
+  }
 }
