@@ -25,3 +25,7 @@ public/
 node_modules/
 resources/_gen/
 
+
+# Netlify CLI local cache (contains absolute paths)
+.netlify/
+
