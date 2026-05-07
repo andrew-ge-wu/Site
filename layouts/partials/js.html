@@ -15,11 +15,25 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
       .then(registration => {
-        console.log('SW registered: ', registration);
+        // When a new SW is found, activate it immediately and reload once.
+        registration.addEventListener('updatefound', () => {
+          const next = registration.installing;
+          if (!next) return;
+          next.addEventListener('statechange', () => {
+            if (next.state === 'installed' && navigator.serviceWorker.controller) {
+              next.postMessage('SKIP_WAITING');
+            }
+          });
+        });
       })
-      .catch(registrationError => {
-        console.log('SW registration failed: ', registrationError);
-      });
+      .catch(() => { /* ignore */ });
+
+    let reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (reloaded) return;
+      reloaded = true;
+      window.location.reload();
+    });
   });
 }
 </script>
