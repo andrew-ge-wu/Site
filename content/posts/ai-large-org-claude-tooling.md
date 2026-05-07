@@ -1,13 +1,13 @@
 ---
 title: "AI in a Large Organization: Standardizing Claude, Code Quality at Scale, and Where Claude Falls Short"
 date: "2026-05-07T20:00:00+02:00"
-description: "Lessons from rolling out Claude as a standard developer tool across many teams: how to keep code quality consistent, where Claude struggles on large codebases, and the guardrails that actually work."
+description: "Lessons from rolling out Claude as a standard developer tool across many teams: layered documentation Claude must respect (system, architecture, framework, class), how to keep code quality consistent, and where Claude struggles on large codebases."
 img: "articles/ai-large-org/hero.svg"
 draft: false
 author: "Andrew Wu"
-tags: ["AI", "Claude", "Engineering Management", "Code Quality", "Developer Tools", "Platform Engineering", "LLM", "Enterprise"]
+tags: ["AI", "Claude", "Engineering Management", "Code Quality", "Developer Tools", "Platform Engineering", "LLM", "Enterprise", "Architecture", "Documentation"]
 categories: ["AI Tools", "Development"]
-keywords: ["Claude at scale", "AI developer tooling", "code quality LLM", "enterprise AI tooling", "Claude code review", "AI guardrails", "platform engineering AI", "AGENTS.md", "MCP", "AI in large organizations"]
+keywords: ["Claude at scale", "AI developer tooling", "code quality LLM", "enterprise AI tooling", "Claude code review", "AI guardrails", "platform engineering AI", "AGENTS.md", "MCP", "AI in large organizations", "layered documentation AI", "ARCHITECTURE.md", "FRAMEWORK.md", "ADR Claude", "high level design AI"]
 lastmod: "2026-05-07T20:00:00+02:00"
 weight: 1
 featured: true
@@ -55,9 +55,124 @@ Every repo gets an `AGENTS.md` (or `CLAUDE.md`) that captures:
 
 This file is the single source of truth for both humans and agents. When something goes wrong, you fix it in one place and every team benefits.
 
-### 2b. Org-level: shared instruction packs
+But `AGENTS.md` alone is not enough. It tells the agent *how to operate*, not *what the system is*. For that, you need layered documentation -- and you need to make Claude take it seriously.
 
-On top of the repo file, the platform team ships **org-wide instructions**:
+### 2b. Beyond `AGENTS.md`: Layered Documentation the Agent Must Respect
+
+The single biggest quality lever I have found is forcing the agent to consult **the right level of documentation for the change at hand**, in this order:
+
+1. **System / domain level** -- "what is this product, who uses it, what guarantees does it provide?"
+2. **Architecture level (HLD)** -- bounded contexts, services, data flows, sync vs async, public contracts
+3. **Framework / module level** -- the in-house framework, its lifecycle, its extension points
+4. **Class / API level** -- the actual symbol, its contract, its invariants, its tests
+
+Skip a level and Claude will write code that *compiles and passes tests* but quietly violates the design. This is the single most common source of "AI rot" in large codebases.
+
+#### The doc tree
+
+I keep documentation co-located with code, in a predictable shape:
+
+```
+repo-root/
+  AGENTS.md                    # how to operate (commands, gates)
+  docs/
+    SYSTEM.md                  # what this product is, who pays for it, SLAs
+    ARCHITECTURE.md            # HLD: services, contexts, contracts, ADRs index
+    adr/                       # one file per architecture decision
+      0001-event-sourcing.md
+      0002-no-cross-domain-imports.md
+  src/
+    payments/
+      FRAMEWORK.md             # how this module's framework works
+      MODULE.md                # public API, extension points, invariants
+      Ledger.java
+      Ledger.md                # class-level contract, invariants, gotchas
+```
+
+Each level answers a different question and **none of them substitutes for the next**.
+
+#### How to make Claude actually read them
+
+Telling the agent "respect the architecture" in `AGENTS.md` does almost nothing. What works is a **mandatory, ordered reading protocol** encoded as instructions plus tooling:
+
+In `AGENTS.md` (the operational contract):
+
+```
+Before writing or modifying code, you MUST:
+
+1. Read docs/SYSTEM.md and docs/ARCHITECTURE.md (cached for the session).
+2. For every file you intend to touch, read the nearest FRAMEWORK.md
+   and MODULE.md upward in the tree.
+3. For every public symbol you change, read the matching <Symbol>.md
+   and the closest test file.
+4. If any doc contradicts your plan, stop and ask. Do not "fix" the doc
+   to match your code.
+5. If a required doc is missing, propose one and wait for approval
+   before generating code.
+
+Skipping a step is a bug, not a shortcut.
+```
+
+Then back it with **tools and gates**, because instructions alone drift:
+
+* A `docs.read(level, path)` MCP tool that returns the right doc for a given file path and **logs which docs were consulted** before each edit. PRs without a complete read trail get flagged.
+* A `find-related-docs(symbol)` tool that walks up from a class or function to all governing docs (class -> module -> framework -> architecture -> system).
+* A pre-commit check that fails the change if a touched public symbol has no class-level doc, or if an ADR-controlled boundary was crossed without a new ADR.
+* An eval task per repo: "given this ticket, list the docs you would read in order" -- scored against the reviewers' answer.
+
+#### High-level design (HLD): the layer Claude is worst at
+
+Claude is strong at class-level work and weak at HLD. Help it:
+
+- Keep `ARCHITECTURE.md` **short and authoritative** -- one diagram, the bounded contexts, the public contracts, the must-not-cross lines. If it's 80 pages, the agent will skim it the way a junior would.
+- Index every **ADR** with one-line summaries (`adr/INDEX.md`) so the agent can grep before it commits. Use ADR status (`accepted`, `superseded`) and have the tool refuse to cite superseded ADRs.
+- Encode the rules the HLD implies as **architecture fitness functions** (see section 3d). The doc says it; the build enforces it. The agent learns by failing the build, not by being polite.
+
+#### Framework-level: respect the spine of your codebase
+
+Most large orgs have one or two in-house frameworks (an app skeleton, a service template, a UI shell). Claude has never seen them. By default it will:
+
+- Reinvent your DI container with raw Spring
+- Ignore your lifecycle hooks and write `main()` directly
+- Bypass your standard logging / metrics / auth filters
+- Use the public version of an API when an internal wrapper exists
+
+The fix is a `FRAMEWORK.md` per framework that the agent **must** read whenever a touched file imports from it. Cover:
+
+- The lifecycle (init, request, shutdown) and where extension points live
+- The required base classes / annotations / decorators
+- Idiomatic patterns vs. anti-patterns, with a one-line **why** for each
+- The escape hatches and when they are acceptable
+- A "minimal correct example" the agent can pattern-match against
+
+Pair it with a `framework.scaffold(kind)` tool that produces the canonical skeleton for a new component. When the agent has a tool that yields the right answer in one call, it stops free-styling.
+
+#### Class / API level: contracts beat comments
+
+At the symbol level, the highest leverage doc is a short **contract block** next to the class:
+
+- Purpose in one sentence
+- Invariants (what is always true)
+- Pre- and post-conditions of public methods
+- Thread-safety / re-entrancy notes
+- Failure modes and what callers must handle
+- Pointer to the canonical test file
+
+This is the doc Claude is best at consuming because it maps directly to code. Make it cheap to write (a template, a generator) and require it on every public symbol. The pre-commit gate enforces existence; the human reviewer enforces accuracy.
+
+#### Documentation as enforcement, not decoration
+
+The principle behind all of this: **documentation only works when reading it is cheaper than guessing, and ignoring it costs more than writing it.** The platform team's job is to make that true:
+
+- Cheap to read: structured, predictable paths, indexable by tools
+- Cheap to write: templates, scaffolds, and AI-assisted first drafts
+- Expensive to ignore: gates, fitness functions, review checklists, eval scoring
+
+Once you have that loop, Claude stops drifting. It reads the system doc before proposing a service split, the framework doc before adding a handler, the class contract before changing a signature -- because that is the path of least resistance you have engineered.
+
+### 2c. Org-level: shared instruction packs
+
+On top of the repo files, the platform team ships **org-wide instructions**:
 
 - Coding standards (naming, error handling, logging, observability)
 - Security policy (no secrets in code, allowed crypto libs, PII rules)
@@ -66,7 +181,7 @@ On top of the repo file, the platform team ships **org-wide instructions**:
 
 Push these as a **read-only layer** the agent always loads. Teams can extend, but they cannot weaken the org policy.
 
-### 2c. MCP servers as the "safe hands"
+### 2d. MCP servers as the "safe hands"
 
 The dangerous part of an agent isn't the reasoning -- it's the **tools** it can reach. Wrap every dangerous capability in an MCP server the platform team owns:
 
@@ -77,7 +192,7 @@ The dangerous part of an agent isn't the reasoning -- it's the **tools** it can 
 
 Now an agent that goes off the rails fails *safely*, because it physically cannot reach production credentials.
 
-### 2d. One eval harness, run on every change
+### 2e. One eval harness, run on every change
 
 Before bumping the model version, the prompt template, or any shared instruction, run it against a **golden set** of tasks pulled from real tickets across teams. Score for:
 
@@ -178,6 +293,7 @@ Even with a perfect MCP boundary, an LLM will:
 
 - One sanctioned AI client, logged and policy-controlled.
 - Every repo carries an `AGENTS.md`. Every org carries a shared instruction pack on top.
+- **Layered docs** -- system, architecture, framework, module, class -- co-located with code, and a mandatory reading protocol the agent follows before it writes.
 - Every dangerous capability is behind an MCP server the platform team owns.
 - Every PR -- AI-assisted or not -- goes through the same automated gates.
 - Every team's AI-assisted defect rate is a number on a dashboard.
