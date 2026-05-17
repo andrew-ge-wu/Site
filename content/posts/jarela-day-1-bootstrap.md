@@ -43,6 +43,11 @@ model is best for the task.
 **Day 1: 31 commits.** Not pretty, not cohesive — this is the "throw the
 walls up and check they hold" day.
 
+<figure>
+  <img src="/img/articles/jarela-day-1/chat-view.png" alt="langGUI chat view streaming a reply on day 1" />
+  <figcaption>The day 1 chat view: agent selector, streaming markdown, tool list.</figcaption>
+</figure>
+
 The core loop landed first: Next.js App Router + a LangGraph agent
 runtime + a SQLite checkpointer. Then I bolted on the obvious chrome:
 a chat view, an agent selector, a message bubble that renders markdown,
@@ -67,11 +72,21 @@ differently for each, and the only way I got it stable was to route
 PATs explicitly to the Models API and reserve the Copilot endpoints
 for device-flow tokens.
 
+<figure>
+  <img src="/img/articles/jarela-day-1/models-panel.png" alt="Models panel with Gemini, DeepSeek, Copilot/GPT-4o, Copilot/Claude" />
+  <figcaption>Four model providers configured, DeepSeek set as default.</figcaption>
+</figure>
+
 ### Background work that wakes itself up
 
 A scheduler that wakes on SSE subscribe so a cron-driven agent can
 ping me when something happens. Teams-style in-app toasts for the
 result, click-to-jump straight to the thread that emitted it.
+
+<figure>
+  <img src="/img/articles/jarela-day-1/scheduler-toast.png" alt="In-app notification toast from a scheduled agent run" />
+  <figcaption>Scheduler firing a toast with the agent icon and a click-to-jump link.</figcaption>
+</figure>
 
 ### Don't lose what's in flight
 
@@ -149,6 +164,11 @@ the box.
   `MCP error -32000: Connection closed`. Almost certainly a `uvx`
   PATH issue when the app is launched from a scheduled task. Not
   fixed today.
+
+<figure>
+  <img src="/img/articles/jarela-day-1/mcp-panel.png" alt="MCP panel showing google-maps connected and time failing" />
+  <figcaption>MCP panel: google-maps green, time red. Honest day-1 state.</figcaption>
+</figure>
 
 **Identity / access.** Tailscale identity passthrough is wired and
 my Google identity is on the access whitelist. From the phone over

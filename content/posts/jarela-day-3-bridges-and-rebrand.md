@@ -53,6 +53,11 @@ Plus a chat picker in the route editor (no more pasting raw JIDs),
 phone-number lookup, and "pin self in chat picker" for the case where I
 want the agent to be able to message me back from itself.
 
+<figure>
+  <img src="/img/articles/jarela-day-3/bridges-panel.png" alt="Bridges panel with WhatsApp connected and a route to the Assistant agent" />
+  <figcaption>WhatsApp bridge connected via Baileys, one route wired to the Assistant.</figcaption>
+</figure>
+
 Agent-side toggle: **"never reply"** — silent / read-only on bridges.
 Useful for a watcher agent that should log and notify but never send
 anything outbound.
@@ -80,6 +85,11 @@ OAuth was the actual work:
    enable Gmail API → consent screen → desktop credentials → here's the
    redirect URI) — because every time I do this from scratch I forget
    two steps.
+
+<figure>
+  <img src="/img/articles/jarela-day-3/gmail-connect.png" alt="Gmail tool card with the Connect Gmail button and in-card GCP setup guide" />
+  <figcaption>The in-app Connect Gmail flow with the GCP setup steps right there in the card.</figcaption>
+</figure>
 
 The lesson: **drafts-only is the right default for any "send" action.**
 The audit trail matters more than the convenience.
@@ -151,6 +161,11 @@ Smaller follow-ups: an expanded README that actually lists the
 features and providers, a Windows task runner (`make.ps1` + `make.cmd`),
 and the iOS PWA icon got a white background because on a dark home
 screen the dark "J" on the dark blue background I had was invisible.
+
+<figure>
+  <img src="/img/articles/jarela-day-3/jarela-rebrand.png" alt="App shell, tab title, and PWA icon all showing the Jarela rebrand" />
+  <figcaption>The rebrand landed: app shell, browser title, and PWA icon all say Jarela now.</figcaption>
+</figure>
 
 ## What I learned
 

@@ -34,6 +34,11 @@ toolkit piece by piece:
 - A sectioned permission UI on top so I can grant filesystem access
   per-agent without it becoming an all-or-nothing switch
 
+<figure>
+  <img src="/img/articles/jarela-day-2/tool-list.png" alt="Tool list showing file_read, file_write, file_edit, file_move, file_list, file_mkdir, generate_image" />
+  <figcaption>The new file toolkit + generate_image, with the per-agent permission UI on top.</figcaption>
+</figure>
+
 A few same-day corrections that mattered more than they sound:
 
 - **`file_list` returns full results by default.** I had it paginated
@@ -90,6 +95,11 @@ language; check what got produced.
 ## Mobile + PWA hardening
 
 This is where I lost the most hours.
+
+<figure>
+  <img src="/img/articles/jarela-day-2/mobile-pwa.png" alt="Jarela installed as an iOS PWA, showing safe-area handling around the notch" />
+  <figcaption>Installed as a PWA on iOS — safe-area inset respected, no kissing the notch or the home indicator.</figcaption>
+</figure>
 
 - Respect Dynamic Island / notch safe-area-inset on the top header.
 - Keep 12px bottom padding on the input bar when safe-area inset is 0
