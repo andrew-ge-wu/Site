@@ -123,6 +123,45 @@ fixes to the chat experience.
 
 ---
 
+## What's actually in the state dir
+
+It's worth being honest about what "day 1" actually means — code
+landing ≠ working integration. Here's what's in `~/.langgui` at the
+end of the day:
+
+**4 model providers configured.** Gemini (`gemini-2.5-flash`),
+DeepSeek (`deepseek-v4-pro`, set as default), GitHub Copilot fronting
+GPT-4o, and GitHub Copilot fronting Claude Opus 4.6. No Anthropic
+or OpenAI direct — Copilot's already paid for, so it fronts both.
+
+**3 agents created.** A default *Assistant* with the kitchen-sink tool
+list on GPT-4o; an *Echo* ("Innovator-Dreamer" persona) for
+brainstorming on GPT-4o with a tight 5-message history window; and an
+*Architect* ("Senior Architect" persona) on DeepSeek with the heavy
+tools — `shell_exec`, `propose_config_change` — so I can let it drive
+the box.
+
+**2 MCP servers, 1 working.**
+
+- `google-maps` via the official `@modelcontextprotocol/server-google-maps`
+  npx package, with the API key piped through `env`. ✅ Connected.
+- `time` via `uvx mcp-server-time`. ❌ Failing on startup with
+  `MCP error -32000: Connection closed`. Almost certainly a `uvx`
+  PATH issue when the app is launched from a scheduled task. Not
+  fixed today.
+
+**Identity / access.** Tailscale identity passthrough is wired and
+my Google identity is on the access whitelist. From the phone over
+the tailnet, the server already knows it's me.
+
+**GitHub Copilot OAuth** completed end-to-end. Worth re-stating:
+the `ghu_` user-OAuth token (what you get from the device flow) is
+**different from** a `ghp_` PAT, which is **different from** a
+Models API token. Three different doors that all look like the
+same product.
+
+---
+
 *If you want to follow along, the repo is open at
 [github.com/andrew-ge-wu/jarela](https://github.com/andrew-ge-wu/jarela).
 It's a personal project — no roadmap, no SLA, no warranty. Just notes

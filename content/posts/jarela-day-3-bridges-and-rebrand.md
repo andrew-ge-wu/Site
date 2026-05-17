@@ -173,6 +173,77 @@ That's the first three days. The honeymoon "44 commits in a day" rate
 isn't sustainable and isn't the point. The point is that the box is on,
 it's mine, and it works.
 
+## What actually worked vs. what I shipped
+
+The most-integrations day so far. It's worth being honest about the
+gap between "shipped the code" and "the agent can actually use it."
+
+**WhatsApp bridge — ✅ connected, ⚠️ partially usable.**
+
+The bridge itself is `status: connected`, paired to my own number,
+no errors. One route wired: messages from myself → Assistant agent,
+labeled "Yourself".
+
+**The catch:** when I asked the Assistant *"can you send a message
+to myself on WhatsApp?"* — it couldn't. The bridge was connected,
+but the WhatsApp **outbound-send tool wasn't in the Assistant's
+allow-list**. The agent said "give me a moment," got hit by today's
+own auto-retry nudge, and still couldn't send. The tool literally
+wasn't bound.
+
+Lesson: **bridge connectivity ≠ agent capability.** Wiring the
+channel and granting the agent the tool are two separate steps. I
+only did one of them today. That gap is the most useful failure
+mode from the whole rebuild — when you compose a system out of
+little pieces, infra availability and agent capability drift apart
+the moment you stop looking.
+
+**Gmail — ✅ working, with a subtle bug.**
+
+The in-app *Connect Gmail* button ran the full OAuth dance and
+stored the refresh token in SQLite. `gmail_search` returned real
+results on the first try.
+
+**But** `gmail_search` with `query: "is:unread", max_results: 1`
+came back as *"you have 1 unread email"* when my actual inbox has
+thousands. The tool returns at most `max_results` rows; the agent
+read that as the total count. Need to either expose Gmail's
+`resultSizeEstimate` or add a separate `gmail_count` tool. Filed
+for tomorrow.
+
+Drafts-only for send is still the right default. Audit trail beats
+convenience every time.
+
+**Google Maps MCP — ⚠️ configured but agent-blind.**
+
+The `google-maps` MCP server from day 1 is still enabled and
+connected. But when I asked *"any interesting place around me?"*,
+the Assistant fell back to `web_search` — because the MCP's
+`maps_*` tools weren't in its allow-list. Same lesson as WhatsApp
+send: infra wired ≠ agent has the tool. The MCP server is healthy
+and idle; the agent doesn't know it exists.
+
+**`get_user_location` — ✅ end-to-end.**
+
+Browser geolocation prompt fired, consent granted, coordinates
+arrived (±22m) and got persisted to the user profile with
+`location_consent: 1`. The ` ```map ` code-fence embed rendered
+the coords as a Google Maps iframe with the API key injected
+server-side. This is the path I trust.
+
+**Time MCP — ❌ still broken from day 1.** `uvx mcp-server-time`
+fails on startup with `Connection closed`. `uvx` is the problem,
+not the server. Haven't fixed it yet.
+
+---
+
+The through-line of the three days: **the structural pieces are
+easy, the integration glue is where everything actually lives.**
+A bridge that's connected but whose tools aren't in the agent's
+allow-list is the system equivalent of having a phone with no
+contacts. The next phase is less about adding more channels and
+more about closing those gaps.
+
 ---
 
 *Repo: [github.com/andrew-ge-wu/jarela](https://github.com/andrew-ge-wu/jarela).

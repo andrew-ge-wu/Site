@@ -179,6 +179,49 @@ Tomorrow: bridges. WhatsApp messages should land in an agent thread,
 because the whole point of "the box is on, it's always there" is that
 messages should reach it from wherever I am.
 
+## What I actually used the new toolkit for
+
+No new providers and no new MCP servers today. Today was about
+*using* yesterday's wiring and seeing where it cracked.
+
+**New agent: *Listener*** — `never_reply: 1`, tool list trimmed to
+just memory + scheduler. The prototype for tomorrow's bridge use
+case: an agent that observes a channel and only writes to memory,
+never speaks. Personality is literally one sentence:
+*"You are a silent listener, you take notes, you NEVER replies."*
+
+**File toolkit, exercised hard.** I spent half the night using the
+Assistant agent to plan and execute an iCloud Drive reorganization —
+`Inbox/`, `Documents/{Work,Personal}/`, `Media/`, etc. It worked,
+but two failure modes showed up immediately:
+
+- The agent kept wanting to touch `Desktop/` and `Documents/`
+  directly even though those are Apple-managed redirects. I had to
+  write a pinned memory rule (`do_not_touch_apple_folders`) before
+  it would respect that constraint.
+- The agent tried to move 1,000+ files in one turn. "Go folder by
+  folder, not too greedy" had to become its own pinned memory.
+- The final source-of-truth lives in iCloud as
+  `File_Organization_Instructions.txt`, so the scheduled sweep
+  agent can re-read it instead of relying on its training.
+
+**Two scheduled file-sweep tasks queued** for tomorrow morning
+(06:00 and 08:00 UTC). Both `enabled: 1`. Tomorrow-me finds out
+whether they actually fire from a fresh process.
+
+**`generate_image` worked.** Three ~1.5 MB files in
+`~/.langgui/files/` are the evidence.
+
+**iOS PWA push notifications** — a long test session. Permissions,
+service worker, test button all flowing. Whether the push actually
+lands when the screen is off is still inconclusive at end-of-day.
+
+**Tailscale × iCloud Private Relay** — confirmed empirically that
+Private Relay on home WiFi hijacks Safari traffic to `*.ts.net`
+hostnames. Workaround: per-SSID disable Private Relay for home WiFi.
+Cellular and other WiFi networks work fine through the tailnet.
+No code change; operational note worth keeping.
+
 ---
 
 *Repo: [github.com/andrew-ge-wu/jarela](https://github.com/andrew-ge-wu/jarela).
