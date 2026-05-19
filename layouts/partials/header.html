@@ -20,9 +20,6 @@
                     <a class="page-scroll" href="{{ $prefix }}#about">About</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="{{ $prefix }}#services">Services</a>
-                </li>
-                <li>
                     <a {{ if .IsHome }}class="page-scroll"{{ end }} href="{{ if .IsHome }}#posts{{ else }}{{ "/posts/" | relURL }}{{ end }}">Posts</a>
                 </li>
                 {{ if isset .Site.Params "social" }}
@@ -47,11 +44,11 @@
 		    <div class="col-lg-12">
 			<div class="intro-message">
 			    <h1>{{ .Site.Title }}</h1>
-			    <h3>{{ .Site.Params.description }}</h3>
+			    <h3>{{ .Site.Params.banner_subtitle | default .Site.Params.description }}</h3>
 			    <hr class="intro-divider">
 			    <div class="intro-cta">
-			      <a href="#services" class="btn btn-primary page-scroll">Explore services</a>
-			      <a href="#posts" class="btn btn-ghost page-scroll">Read articles</a>
+			      <a href="#posts" class="btn btn-primary page-scroll">Read articles</a>
+			      <a href="#about" class="btn btn-ghost page-scroll">About</a>
 			    </div>
 			    {{ if isset .Site.Params "social" }}
 			    <ul class="list-inline intro-social-buttons">
