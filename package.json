@@ -1,7 +1,7 @@
 {
   "name": "circuitwall-site",
   "version": "2.1.0",
-  "description": "CircuitWall Consultancy Website - Professional Java, Spring, Big Data & ML consulting services",
+  "description": "CircuitWall personal site - Java, Spring, Big Data & ML notes by Andrew Wu",
   "scripts": {
     "dev": "hugo serve --buildDrafts --buildFuture --disableFastRender",
     "build": "hugo --gc --minify --enableGitInfo",
@@ -16,7 +16,6 @@
   "keywords": [
     "hugo",
     "static-site",
-    "consulting",
     "java",
     "spring",
     "machine-learning",

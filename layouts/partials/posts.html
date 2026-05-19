@@ -8,13 +8,24 @@
 
     <div class="posts-grid">
       {{ $posts := where .Site.RegularPages "Section" "posts" }}
-      {{ range first 6 $posts.ByDate.Reverse }}
-        <article class="post-card-modern">
-          {{ with .Params.img }}
-            {{ $heroPath := printf "img/%s" . }}
+      {{ range $i, $p := first 6 $posts.ByDate.Reverse }}
+        {{ with $p }}
+        <article class="post-card-modern{{ if eq $i 0 }} post-card-featured{{ end }}">
+          {{/* Hero image: explicit Params.img wins; otherwise grab the first <img> from the rendered content. */}}
+          {{ $imgParam := .Params.img }}
+          {{ $contentImg := "" }}
+          {{ if not $imgParam }}
+            {{ $matches := findRE `<img[^>]+src="[^"]+"` .Content 1 }}
+            {{ with $matches }}
+              {{ $contentImg = replaceRE `.*src="([^"]+)".*` "$1" (index . 0) }}
+            {{ end }}
+          {{ end }}
+
+          {{ if $imgParam }}
+            {{ $heroPath := printf "img/%s" $imgParam }}
             {{ with resources.Get $heroPath }}
               {{ if in (slice "image/jpeg" "image/png" "image/webp") .MediaType.Type }}
-                {{ $thumb := .Resize "640x webp q82" }}
+                {{ $thumb := .Resize "960x webp q82" }}
                 <a href="{{ $.RelPermalink }}" class="post-card-img" aria-hidden="true" tabindex="-1">
                   <img src="{{ $thumb.RelPermalink }}"
                        width="{{ $thumb.Width }}" height="{{ $thumb.Height }}"
@@ -23,9 +34,13 @@
               {{ end }}
             {{ else }}
               <a href="{{ $.RelPermalink }}" class="post-card-img" aria-hidden="true" tabindex="-1">
-                <img src="/img/{{ . }}" alt="" loading="lazy" decoding="async">
+                <img src="/img/{{ $imgParam }}" alt="" loading="lazy" decoding="async">
               </a>
             {{ end }}
+          {{ else if $contentImg }}
+            <a href="{{ $.RelPermalink }}" class="post-card-img" aria-hidden="true" tabindex="-1">
+              <img src="{{ $contentImg }}" alt="" loading="lazy" decoding="async">
+            </a>
           {{ end }}
           <div class="post-card-body">
             <div class="post-card-meta">
@@ -50,6 +65,7 @@
             <a href="{{ .RelPermalink }}" class="post-card-link">Read article →</a>
           </div>
         </article>
+        {{ end }}
       {{ end }}
     </div>
 

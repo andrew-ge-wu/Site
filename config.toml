@@ -1,5 +1,5 @@
 defaultContentLanguage = "en"
-title = "CircuitWall Consultancy"
+title = "CircuitWall"
 theme = "landing-page"
 baseurl = "https://circuitwall.net"
 
@@ -26,12 +26,12 @@ enableEmoji = true
     name = "Andrew Wu"
     
     # SEO improvements
-    description = "Expert Java, Spring, JVM performance tuning, big data, real-time processing and machine learning consultancy by Andrew Wu in Stockholm, Sweden."
-    keywords = "Java consultancy, Spring Framework, JVM performance, big data, machine learning, MLOps, Stockholm consultant"
+    description = "Java, Spring, JVM performance tuning, big data, real-time processing and machine learning notes by Andrew Wu in Stockholm, Sweden."
+    keywords = "Java, Spring Framework, JVM performance, big data, machine learning, MLOps, Stockholm"
     author = "Andrew Wu"
     
     # Original params
-    subtitle = "A Java, Spring, JVM performance tuning, bigdata, realtime processing and machine learning consultancy."
+    subtitle = "Java, Spring, JVM performance tuning, big data, real-time processing and machine learning."
     banner_subtitle = "Java, Spring, JVM performance tuning, big data, real-time processing and machine learning."
     buttonText = "Find out more"
     favicon = "static/favicon.ico"

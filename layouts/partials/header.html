@@ -20,6 +20,9 @@
                     <a class="page-scroll" href="{{ $prefix }}#about">About</a>
                 </li>
                 <li>
+                    <a href="{{ "/services/" | relURL }}">Services</a>
+                </li>
+                <li>
                     <a {{ if .IsHome }}class="page-scroll"{{ end }} href="{{ if .IsHome }}#posts{{ else }}{{ "/posts/" | relURL }}{{ end }}">Posts</a>
                 </li>
                 {{ if isset .Site.Params "social" }}
